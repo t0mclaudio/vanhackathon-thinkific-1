@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactPlayer from 'react-player';
+import Cover from './Cover';
 
 export default class Player extends React.Component {
   constructor(props) {
@@ -77,24 +78,5 @@ export default class Player extends React.Component {
         <h3>{this.state.elapsed}</h3>
       </React.Fragment>
     )
-  }
-}
-
-const Cover = () => {
-  return (
-    <div style={style.cover} >
-      <button onClick={() => this.promptClicked()}>Click here</button>
-    </div>
-  )
-}
-
-const style = {
-  cover: {
-    width: '640px',
-    height: '360px',
-    backgroundColor: 'red',
-    zIndex: "99",
-    position: 'absolute',
-    opacity: .6
   }
 }
