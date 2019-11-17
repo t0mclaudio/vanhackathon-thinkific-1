@@ -1,30 +1,29 @@
 import React from 'react';
 import ReactPlayer from 'react-player';
 
-class Player extends React.Component {
+export default class Player extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      show: false,
-      prompt: false,
       playing: false,
-      currentSecond: 0
+      currentSecond: 0,
+      cover: false
     }
   }
 
   play() {
-    this.setState({ playing: true, prompt: false })
+    this.setState({ playing: true, cover: false })
   }
 
   pause() {
-    this.setState({ playing: false, prompt: true })
+    this.setState({ playing: false, cover: true })
   }
 
   onProgress(state) {
     console.log(state)
     let elapsedSeconds = this.convertSecondsToInt(state.playedSeconds)
     this.timeElapsed(elapsedSeconds);
-    if ([3,6,9,12,15,18].includes(elapsedSeconds)) {
+    if ([3, 6, 9, 12, 15, 18].includes(elapsedSeconds)) {
       this.player.seekTo(elapsedSeconds) // go to next second
       this.pause()
     }
@@ -35,10 +34,10 @@ class Player extends React.Component {
   }
 
   timeElapsed(currentSecond) {
-    this.setState({ 
+    this.setState({
       currentSecond: currentSecond,
       elapsed: this.convertSecondsToTime(currentSecond),
-     })
+    })
   }
 
   convertSecondsToTime(timeInSeconds) {
@@ -51,10 +50,6 @@ class Player extends React.Component {
     return `${pad(hours, 2)}:${pad(minutes, 2)}:${pad(seconds, 2)}`
   }
 
-  promptClicked() {
-    this.play()
-  }
-
   ref = player => {
     this.player = player
   }
@@ -62,36 +57,33 @@ class Player extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <div style={{ position: 'relative'}} >
-          {this.state.prompt ? <Prompt promptClicked={() => this.promptClicked()} /> : ""}
-          <div style={{ pointerEvents: 'none'}}>
-            <ReactPlayer url="https://www.youtube.com/watch?v=jNgP6d9HraI"
-              config = {{
-                wistia: {
-                  options: {
-                    controlsVisibleOnLoad: false,
-                    playButton: false
-                  }
+        {this.state.cover ? <Cover /> : null}
+        <div style={{ pointerEvents: 'none' }}>
+          <ReactPlayer url="https://www.youtube.com/watch?v=jNgP6d9HraI"
+            config={{
+              wistia: {
+                options: {
+                  controlsVisibleOnLoad: false,
+                  playButton: false
                 }
-              }}
-              ref={this.ref}
-              playing={this.state.playing}
-              onProgress={state => this.onProgress(state)} />
-          </div>
+              }
+            }}
+            ref={this.ref}
+            playing={this.state.playing}
+            onProgress={state => this.onProgress(state)} />
         </div>
         <button onClick={() => this.play()}>Play</button>
         <button onClick={() => this.pause()}>Pause</button>
         <h3>{this.state.elapsed}</h3>
       </React.Fragment>
-
     )
   }
 }
 
-const Prompt = props => {
+const Cover = () => {
   return (
     <div style={style.cover} >
-      <button onClick={() => props.promptClicked()}>Click here</button>
+      <button onClick={() => this.promptClicked()}>Click here</button>
     </div>
   )
 }
@@ -106,6 +98,3 @@ const style = {
     opacity: .6
   }
 }
-
-ReactDOM.render(<Sample />, mount);
-
