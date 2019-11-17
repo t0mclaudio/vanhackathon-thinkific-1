@@ -12,8 +12,7 @@ class Sample extends React.Component {
       show: false,
       prompt: false,
       playing: false,
-      currentSecond: 0,
-      timeElapsed: 0
+      currentSecond: 0
     }
   }
 
@@ -29,13 +28,14 @@ class Sample extends React.Component {
     console.log(state)
     let elapsedSeconds = this.convertSecondsToInt(state.playedSeconds)
     this.timeElapsed(elapsedSeconds);
-    if (elapsedSeconds === 5) {
+    if ([3,6,9,12,15,18].includes(elapsedSeconds)) {
+      this.player.seekTo(elapsedSeconds) // go to next second
       this.pause()
     }
   }
 
   convertSecondsToInt(time) {
-    return parseInt(time)
+    return parseInt(Math.ceil(time))
   }
 
   timeElapsed(currentSecond) {
@@ -50,16 +50,24 @@ class Sample extends React.Component {
       time = parseFloat(timeInSeconds).toFixed(3),
       hours = Math.floor(time / 60 / 60),
       minutes = Math.floor(time / 60) % 60,
-      seconds = Math.floor(time - minutes * 60)
+      seconds = Math.floor(time - minutes * 60);
 
     return `${pad(hours, 2)}:${pad(minutes, 2)}:${pad(seconds, 2)}`
+  }
+
+  promptClicked() {
+    this.play()
+  }
+
+  ref = player => {
+    this.player = player
   }
 
   render() {
     return (
       <React.Fragment>
         <div style={{ position: 'relative'}} >
-          {this.state.prompt ? <Prompt /> : ""}
+          {this.state.prompt ? <Prompt promptClicked={() => this.promptClicked()} /> : ""}
           <div style={{ pointerEvents: 'none'}}>
             <ReactPlayer url="https://www.youtube.com/watch?v=jNgP6d9HraI"
               config = {{
@@ -70,6 +78,7 @@ class Sample extends React.Component {
                   }
                 }
               }}
+              ref={this.ref}
               playing={this.state.playing}
               onProgress={state => this.onProgress(state)} />
           </div>
@@ -83,10 +92,10 @@ class Sample extends React.Component {
   }
 }
 
-const Prompt = () => {
+const Prompt = props => {
   return (
     <div style={style.cover} >
-      <button onClick={() => alert("Clicked")}>Click here</button>
+      <button onClick={() => props.promptClicked()}>Click here</button>
     </div>
   )
 }
