@@ -13,10 +13,7 @@ export default class Player extends React.Component {
   }
 
   togglePlayPause() {
-    this.setState({
-      playing: !this.state.playing,
-      cover: !this.state.cover 
-    })
+    this.state.playing ? this.pause() : this.play()
   }
 
   play() {
