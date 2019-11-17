@@ -20,9 +20,7 @@ class Index extends React.Component {
 
   render() {
     return (
-      <div style={{ position: 'relative' }} >
-        <Player ref={this.player} />
-      </div>
+      <Player ref={this.player} />
     )
   }
 }

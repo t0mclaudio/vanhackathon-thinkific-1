@@ -57,7 +57,7 @@ export default class Player extends React.Component {
 
   render() {
     return (
-      <React.Fragment>
+      <div style={{ position: 'relative' }} >
         {this.state.cover ? <Cover /> : null}
         <div style={{ pointerEvents: 'none' }}>
           <ReactPlayer url="https://www.youtube.com/watch?v=jNgP6d9HraI"
@@ -76,7 +76,7 @@ export default class Player extends React.Component {
         <button onClick={() => this.play()}>Play</button>
         <button onClick={() => this.pause()}>Pause</button>
         <h3>{this.state.elapsed}</h3>
-      </React.Fragment>
+      </div>
     )
   }
 }
