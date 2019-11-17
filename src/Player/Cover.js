@@ -1,20 +1,16 @@
 import React from 'react';
 
 export default () => {
-  return (
-    <div style={style.cover} >
-      <button onClick={() => this.promptClicked()}>Click here</button>
-    </div>
-  )
+  return <div style={style.cover}></div>
 }
 
 const style = {
   cover: {
     width: '640px',
     height: '360px',
-    backgroundColor: 'red',
+    backgroundColor: 'black',
     zIndex: "99",
     position: 'absolute',
-    opacity: .6
+    opacity: .75
   }
 }
