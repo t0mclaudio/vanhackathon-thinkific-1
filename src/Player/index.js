@@ -12,6 +12,13 @@ export default class Player extends React.Component {
     }
   }
 
+  togglePlayPause() {
+    this.setState({
+      playing: !this.state.playing,
+      cover: !this.state.cover 
+    })
+  }
+
   play() {
     this.setState({ playing: true, cover: false })
   }
@@ -73,8 +80,9 @@ export default class Player extends React.Component {
             playing={this.state.playing}
             onProgress={state => this.onProgress(state)} />
         </div>
-        <button onClick={() => this.play()}>Play</button>
-        <button onClick={() => this.pause()}>Pause</button>
+        <button onClick={() => this.togglePlayPause()} >
+          { this.state.playing ? 'Pause' : 'Play' }
+        </button>
         <h3>{this.state.elapsed}</h3>
       </div>
     )
