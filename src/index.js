@@ -20,9 +20,22 @@ class Index extends React.Component {
 
   render() {
     return (
-      <Player ref={this.player} />
+      <div style={{position:'relative', width:'640px', height: '360px'}}>
+        <Prompter />
+        <Player ref={this.player} />
+      </div>
     )
   }
+}
+
+const Prompter = props => {
+  return (
+    <div style={{width: '100%', height: '100%', position: 'absolute', zIndex:999, padding: '10px' }}>
+      <input type="text" style={{display: 'block', padding: '10px 0', margin: '10px', width: '250px'}} /> 
+      <input type="text" style={{display: 'block', padding: '10px 0', margin: '10px', width: '250px'}} />
+      <input type="text" style={{display: 'block', padding: '10px 0', margin: '10px', width: '250px'}} />
+    </div>
+  )
 }
 
 const mountPoint = document.getElementById('mount-point');
