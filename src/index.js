@@ -30,7 +30,7 @@ class Index extends React.Component {
 
 const Prompter = props => {
   return (
-    <div style={{width: '100%', height: '100%', position: 'absolute', zIndex:999, padding: '10px' }}>
+    <div style={{width: '90%', height: '90%', position: 'absolute', zIndex:999, padding: '10px' }}>
       <input type="text" style={{display: 'block', padding: '10px 0', margin: '10px', width: '250px'}} /> 
       <input type="text" style={{display: 'block', padding: '10px 0', margin: '10px', width: '250px'}} />
       <input type="text" style={{display: 'block', padding: '10px 0', margin: '10px', width: '250px'}} />
