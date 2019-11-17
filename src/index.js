@@ -12,50 +12,66 @@ class Sample extends React.Component {
       show: false,
       prompt: false,
       playing: false,
-      elapsed: 0
+      currentSecond: 0,
+      timeElapsed: 0
     }
   }
 
   play() {
-    console.log('here')
     this.setState({ playing: true, prompt: false })
   }
 
   pause() {
-    console.log('here')
     this.setState({ playing: false, prompt: true })
   }
 
-  timeElapsed(state) {
-    this.setState({ elapsed: this.sec2time(parseInt(state.playedSeconds)) })
+  onProgress(state) {
+    console.log(state)
+    let elapsedSeconds = this.convertSecondsToInt(state.playedSeconds)
+    this.timeElapsed(elapsedSeconds);
+    if (elapsedSeconds === 5) {
+      this.pause()
+    }
   }
 
-  sec2time(timeInSeconds) {
+  convertSecondsToInt(time) {
+    return parseInt(time)
+  }
+
+  timeElapsed(currentSecond) {
+    this.setState({ 
+      currentSecond: currentSecond,
+      elapsed: this.convertSecondsToTime(currentSecond),
+     })
+  }
+
+  convertSecondsToTime(timeInSeconds) {
     var pad = function (num, size) { return ('000' + num).slice(size * -1); },
       time = parseFloat(timeInSeconds).toFixed(3),
       hours = Math.floor(time / 60 / 60),
       minutes = Math.floor(time / 60) % 60,
       seconds = Math.floor(time - minutes * 60)
 
-    return pad(hours, 2) + ':' + pad(minutes, 2) + ':' + pad(seconds, 2);
+    return `${pad(hours, 2)}:${pad(minutes, 2)}:${pad(seconds, 2)}`
   }
 
   render() {
     return (
       <React.Fragment>
-        <div style={{ position: 'relative', opacity: 1, backgroundColor: 'red'}} >
+        <div style={{ position: 'relative'}} >
           {this.state.prompt ? <Prompt /> : ""}
-          <div style={{ pointerEvents: 'none', backgroundColor: 'black' }}>
-            <ReactPlayer url="https://home.wistia.com/medias/29b0fbf547"
+          <div style={{ pointerEvents: 'none'}}>
+            <ReactPlayer url="https://www.youtube.com/watch?v=jNgP6d9HraI"
               config = {{
                 wistia: {
                   options: {
-                    controlsVisibleOnLoad: false
+                    controlsVisibleOnLoad: false,
+                    playButton: false
                   }
                 }
               }}
               playing={this.state.playing}
-              onProgress={state => this.timeElapsed(state)} />
+              onProgress={state => this.onProgress(state)} />
           </div>
         </div>
         <button onClick={() => this.play()}>Play</button>
@@ -77,8 +93,8 @@ const Prompt = () => {
 
 const style = {
   cover: {
-    width: '100%',
-    height: '100%',
+    width: '640px',
+    height: '360px',
     backgroundColor: 'red',
     zIndex: "99",
     position: 'absolute',
