@@ -7,7 +7,9 @@ import {
   Link
 } from 'react-router-dom';
 
-
+import Create from './Create';
+import Home from './Home';
+import Edit from './Edit';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -51,18 +53,6 @@ export default class App extends React.Component {
       </Router>
     )
   }
-}
-
-const Create = props => {
-  return <h1>Create</h1>
-}
-
-const Edit = props => {
-  return <h1>Edit</h1>
-}
-
-const Home = props => {
-  return <h1>Home</h1>
 }
 
 const Prompter = props => {
