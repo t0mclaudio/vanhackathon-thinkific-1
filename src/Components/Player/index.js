@@ -33,7 +33,7 @@ export default class Player extends React.Component {
     console.log(state)
     let elapsedSeconds = this.convertSecondsToInt(state.playedSeconds)
     this.timeElapsed(elapsedSeconds);
-    if ([3, 6, 9, 12, 15, 18].includes(elapsedSeconds)) {
+    if ([5, 10].includes(elapsedSeconds)) {
       this.player.seekTo(elapsedSeconds) // go to next second
       this.pause()
     }
@@ -58,6 +58,10 @@ export default class Player extends React.Component {
       seconds = Math.floor(time - minutes * 60);
 
     return `${pad(hours, 2)}:${pad(minutes, 2)}:${pad(seconds, 2)}`
+  }
+
+  reportCurrentSecond() {
+    return this.state.currentSecond
   }
 
   ref = player => {
