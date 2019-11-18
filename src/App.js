@@ -1,8 +1,7 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import Player from './Player';
 
-class Index extends React.Component {
+export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -37,7 +36,4 @@ const Prompter = props => {
     </div>
   )
 }
-
-const mountPoint = document.getElementById('mount-point');
-ReactDOM.render(<Index />, mountPoint);
 
