@@ -1,17 +1,35 @@
 import React from 'react';
 import Player from '../Components/Player';
 
+import Modal from '../Components/Modal';
+
 export default class Create extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      url: ""
+      url: "",
+      openModal: false,
+      currentTime: 0,
     }
+    this.player = React.createRef();
   }
+
   submitUrl(e) {
     e.preventDefault()
     console.log(e.target.elements.url.value)
     this.setState({url:e.target.elements.url.value})
+  }
+
+  openModal() {
+    this.player.current.pause();
+    this.setState({
+      openModal: true,
+      currentTime: this.player.current.reportCurrentSecond()
+    })
+  }
+
+  closeModal() {
+    this.setState({openModal: false})
   }
 
   render() {
@@ -23,22 +41,22 @@ export default class Create extends React.Component {
           <input type="submit" />
         </form>
 
-        <div style={{ position: 'relative', width: '640px', height: '360px' }}>
-          {/* <Prompter /> */}
-          <Player url={this.state.url}/>
+        <div style={{ position: 'relative', width: '640px', height: '390px' }}>
+          <Player url={this.state.url} ref={this.player} />
         </div>
+
+        <div>
+          <button onClick={() => this.openModal()}>Create new prompt</button>
+        </div>
+
+        {this.state.openModal ? 
+          <Modal toggleShow={() => this.closeModal()}>
+            {this.state.currentTime}
+          </Modal> 
+          : "" }
       </React.Fragment>
 
     )
   }
 }
 
-// const Prompter = props => {
-//   return (
-//     <div style={{ width: '90%', height: '90%', position: 'absolute', zIndex: 999, padding: '10px' }}>
-//       <input type="text" style={{ display: 'block', padding: '10px 0', margin: '10px', width: '250px' }} />
-//       <input type="text" style={{ display: 'block', padding: '10px 0', margin: '10px', width: '250px' }} />
-//       <input type="text" style={{ display: 'block', padding: '10px 0', margin: '10px', width: '250px' }} />
-//     </div>
-//   )
-// }
