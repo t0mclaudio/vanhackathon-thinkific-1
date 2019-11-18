@@ -6,10 +6,15 @@ export default class Player extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      url: props.url,
       playing: false,
       currentSecond: 0,
       cover: false
     }
+  }
+
+  componentWillReceiveProps(props) {
+    this.setState({url: props.url})
   }
 
   togglePlayPause() {
@@ -64,7 +69,8 @@ export default class Player extends React.Component {
       <div style={{ position: 'relative' }} >
         {this.state.cover ? <Cover /> : null}
         <div style={{ pointerEvents: 'none' }}>
-          <ReactPlayer url="https://www.youtube.com/watch?v=jNgP6d9HraI"
+          <ReactPlayer 
+            url= {this.state.url}
             config={{
               wistia: {
                 options: {
