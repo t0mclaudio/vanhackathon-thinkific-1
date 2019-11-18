@@ -41,8 +41,13 @@ export default class Create extends React.Component {
           <input type="submit" />
         </form>
 
-        <div style={{ position: 'relative', width: '640px', height: '390px' }}>
-          <Player url={this.state.url} ref={this.player} />
+        <div style={{ position: 'relative', width: '640px', height: '390px', backgroundColor: 'black' }}>
+          {this.state.url ? 
+            <Player url={this.state.url} ref={this.player} />
+          :
+          ""
+          }
+          
         </div>
 
         <div>
