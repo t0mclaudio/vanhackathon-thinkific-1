@@ -2,7 +2,6 @@ import React from 'react';
 import SelectQuestion from './SelectQuestion';
 import FillTheBlank from './FillTheBlank';
 import MultipleChoice from './MultipleChoice';
-import TrueFalse from './TrueFalse';
 
 export default (props) => {
   switch (props.state.activeInModal) {
@@ -11,9 +10,7 @@ export default (props) => {
     case "B":
       return <FillTheBlank time={props.state.time.currentSecond} handleSubmit={data => props.handleSubmit(data) } />
     case "C":
-      return <MultipleChoice />
-    case "D":
-      return <TrueFalse />
+      return <MultipleChoice time={props.state.time.currentSecond} handleSubmit={data => props.handleSubmit(data) } />
     default:
       return <SelectQuestion updateModalModule={(id) => props.updateModalModule(id)} />
   }  
