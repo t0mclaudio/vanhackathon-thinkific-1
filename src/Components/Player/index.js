@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactPlayer from 'react-player';
-import Cover from './Cover';
+import overlay from './Overlay';
 
 export default class Player extends React.Component {
   constructor(props) {
@@ -9,7 +9,7 @@ export default class Player extends React.Component {
       url: props.url,
       playing: false,
       currentSecond: 0,
-      cover: false
+      overlay: false
     }
   }
 
@@ -22,11 +22,11 @@ export default class Player extends React.Component {
   }
 
   play() {
-    this.setState({ playing: true, cover: false })
+    this.setState({ playing: true, overlay: false })
   }
 
   pause() {
-    this.setState({ playing: false, cover: true })
+    this.setState({ playing: false, overlay: true })
   }
 
   onProgress(state) {
@@ -64,6 +64,10 @@ export default class Player extends React.Component {
     return this.state.currentSecond
   }
 
+  reportReady() {
+    this.setState({ ready: true })
+  }
+
   ref = player => {
     this.player = player
   }
@@ -71,9 +75,10 @@ export default class Player extends React.Component {
   render() {
     return (
       <div style={{ position: 'relative' }} >
-        {this.state.cover ? <Cover /> : null}
+        {this.state.overlay ? <Overlay /> : null}
         <div style={{ pointerEvents: 'none' }}>
           <ReactPlayer
+            ref={this.ref}
             url={this.state.url}
             config={{
               wistia: {
@@ -83,13 +88,16 @@ export default class Player extends React.Component {
                 }
               }
             }}
-            ref={this.ref}
+            onReady={() => this.reportReady()}
             playing={this.state.playing}
             onProgress={state => this.onProgress(state)} />
         </div>
-        <button onClick={() => this.togglePlayPause()} >
-          {this.state.playing ? 'Pause' : 'Play'}
-        </button>
+        {this.state.ready ?
+          <button onClick={() => this.togglePlayPause()} >
+            {this.state.playing ? 'Pause' : 'Play'}
+          </button> : ""
+        }
+
         <span>{this.state.elapsed}</span>
       </div>
     )
