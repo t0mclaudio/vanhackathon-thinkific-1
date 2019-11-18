@@ -6,15 +6,17 @@ export default class Player extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      url: props.url,
+      url: this.props.url,
       playing: false,
       currentSecond: 0,
       overlay: false
     }
   }
 
-  componentWillReceiveProps(props) {
-    this.setState({ url: props.url })
+  componentDidUpdate(previousProps) {
+    if (previousProps.url !== this.props.url) {
+      this.setState({ url: this.props.url })
+    }
   }
 
   togglePlayPause() {
