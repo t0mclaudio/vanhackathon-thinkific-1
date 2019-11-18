@@ -15,7 +15,8 @@ export default class Create extends React.Component {
       url: "",
       openModal: false,
       time: {},
-      activeInModal: 'A'
+      activeInModal: 'A',
+      prompts: []
     }
     this.player = React.createRef();
   }
@@ -38,11 +39,18 @@ export default class Create extends React.Component {
   }
 
   clearURL() {
-    this.setState({ url: "" })
+    this.setState({ url: "", prompts: [] })
   }
 
   updateModalModule(id) {
     this.setState({ activeInModal: id })
+  }
+
+  handleSubmit(data) {
+    let prompts = this.state.prompts;
+    prompts.push(data)
+    this.setState({ prompts: prompts })
+    this.closeModal()
   }
 
   render() {
@@ -56,7 +64,11 @@ export default class Create extends React.Component {
         <ModalWrapper state={this.state}>
           <Modal toggleShow={() => this.closeModal()}>
             <ComposerWrapper state={this.state} updateModalModule={(id) => this.updateModalModule(id)} >
-              <Composer state={this.state} updateModalModule={(id) => this.updateModalModule(id)} />
+              <Composer 
+                state={this.state} 
+                updateModalModule={(id) => this.updateModalModule(id)} 
+                handleSubmit={data => this.handleSubmit(data)}
+                />
             </ComposerWrapper>
           </Modal>
         </ModalWrapper>
