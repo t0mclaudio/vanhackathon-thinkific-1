@@ -72,6 +72,14 @@ export default class Create extends React.Component {
             </ComposerWrapper>
           </Modal>
         </ModalWrapper>
+        <div>
+          { this.state.prompts.map(prompt => {
+            return (
+              <div style={{padding:'10px', border: '1px solid gray'}}>{`${prompt.question} : ${prompt.answer}`}</div>
+            )
+            
+          })}
+        </div>
       </React.Fragment>
     )
   }
