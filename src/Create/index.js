@@ -1,5 +1,12 @@
 import React from 'react';
 
 export default () => {
-  return <h1>Create</h1>
+  return (
+    <form>
+      <label htmlFor="urlfield">Please enter URL</label>
+      <input id="urlfield" type="url" name="url" />
+      <input type="submit" />
+    </form>
+
+  )
 }

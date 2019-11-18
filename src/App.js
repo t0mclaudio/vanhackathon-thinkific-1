@@ -1,5 +1,5 @@
 import React from 'react';
-import Player from './Player';
+import Player from './Components/Player';
 import {
   BrowserRouter as Router,
   Switch,
