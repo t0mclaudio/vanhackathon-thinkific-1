@@ -10,6 +10,7 @@ export default class Create extends React.Component {
       url: "",
       openModal: false,
       time: {},
+      activeInModal: 'A'
     }
     this.player = React.createRef();
   }
@@ -29,11 +30,15 @@ export default class Create extends React.Component {
   }
 
   closeModal() {
-    this.setState({ openModal: false })
+    this.setState({ openModal: false, activeInModal: 'A' })
   }
 
   clear() {
     this.setState({ url: "" })
+  }
+
+  updateModalModule(id) {
+    this.setState({ activeInModal: id })
   }
 
   render() {
@@ -60,12 +65,14 @@ export default class Create extends React.Component {
         {this.state.url ?
           <div>
             <button onClick={() => this.openModal()}>Create new prompt</button>
-          </div>: "" }
+          </div> : ""}
 
 
         {this.state.openModal ?
           <Modal toggleShow={() => this.closeModal()}>
-            <SelectQuestionType time={this.state.time} />  
+            <ComposerWrapper time={this.state.time} currentModule={this.state.activeInModal} updateModalModule={(id) => this.updateModalModule(id)} >
+              <ModalSwitch module={this.state.activeInModal} updateModalModule={(id) => this.updateModalModule(id)} />
+            </ComposerWrapper>
           </Modal>
           : ""}
       </React.Fragment>
@@ -75,15 +82,88 @@ export default class Create extends React.Component {
 }
 
 const SelectQuestionType = props => {
+  console.log(props)
   return (
     <div>
-      <h3>Prompt will be positioned at {props.time.elapsed}</h3>
       <div>
-        <button>Fill in the blank</button>
-        <button>Multiple choice</button>
-        <button>True or False</button>
-        <button>Poll</button>
+        <button onClick={() => props.updateModalModule("B")}>Fill in the blank</button>
+        <button onClick={() => props.updateModalModule("C")}>Multiple choice</button>
+        <button onClick={() => props.updateModalModule("D")}>True or False</button>
       </div>
+    </div>
+  )
+}
+
+class FillInTheBlankComposer extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      question: "",
+      answer: ""
+    }
+  }
+  handleChange(event) {
+    this.setState({ [event.target.name]: event.target.value });
+  }
+
+  handleSubmit(e) {
+    e.preventDefault()
+    console.log(this.state)
+  }
+
+  render() {
+    return (
+      <form>
+        <label for="question">Question</label>
+        <textarea id="question" name="question" value={this.state.question}></textarea>
+        <label for="answer">Answer</label>
+        <input id="answer" type="text" name="answer" value={this.state.answer}></input>
+        <input type="submit" value="Submit" />
+      </form>
+    )
+  }
+}
+
+
+class MultipleChoiceComposer extends React.Component {
+  render() {
+    return (
+      null
+    )
+  }
+}
+
+class TrueOrFalseComposer extends React.Component {
+  render() {
+    return (
+      null
+    )
+  }
+}
+
+
+const ModalSwitch = props => {
+  switch (props.module) {
+    case "A":
+      return <SelectQuestionType updateModalModule={(id) => props.updateModalModule(id)} />
+    case "B":
+      return <FillInTheBlankComposer />
+    case "C":
+      return <MultipleChoiceComposer />
+    case "D":
+      return <TrueOrFalseComposer />
+    default:
+      return <SelectQuestionType />
+  }
+}
+
+const ComposerWrapper = props => {
+  return (
+    <div>
+      {props.currentModule !== "A" ?
+        <button onClick={() => props.updateModalModule("A")}>Back</button> : ""}
+      <h3>Prompt will be positioned at {props.time.elapsed}</h3>
+      {props.children}
     </div>
   )
 }
