@@ -11,8 +11,7 @@ export default (props) => {
               id="closePortalBtn" 
               style={closePortalBtn}
               onClick={() => props.toggleShow()}>close [x]</span>
-            {/* {this.props.children} */}
-            Hello world!!!!
+              {props.children}
           </div>
         </div>
       </div>
