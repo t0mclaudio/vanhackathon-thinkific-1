@@ -9,7 +9,7 @@ export default class Create extends React.Component {
     this.state = {
       url: "",
       openModal: false,
-      currentTime: 0,
+      time: {},
     }
     this.player = React.createRef();
   }
@@ -24,7 +24,7 @@ export default class Create extends React.Component {
     this.player.current.pause();
     this.setState({
       openModal: true,
-      currentTime: this.player.current.reportCurrentSecond()
+      time: this.player.current.reportTime()
     })
   }
 
@@ -65,7 +65,7 @@ export default class Create extends React.Component {
 
         {this.state.openModal ?
           <Modal toggleShow={() => this.closeModal()}>
-            {this.state.currentTime}
+            <SelectQuestionType time={this.state.time} />  
           </Modal>
           : ""}
       </React.Fragment>
@@ -74,3 +74,16 @@ export default class Create extends React.Component {
   }
 }
 
+const SelectQuestionType = props => {
+  return (
+    <div>
+      <h3>Prompt will be positioned at {props.time.elapsed}</h3>
+      <div>
+        <button>Fill in the blank</button>
+        <button>Multiple choice</button>
+        <button>True or False</button>
+        <button>Poll</button>
+      </div>
+    </div>
+  )
+}
