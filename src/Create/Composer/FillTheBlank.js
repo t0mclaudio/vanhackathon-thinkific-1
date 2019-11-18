@@ -6,7 +6,8 @@ export default class FillTheBlank extends React.Component {
     this.state = {
       question: "",
       answer: "",
-      time: props.time
+      time: props.time,
+      type: "fill the blank"
     }
   }
   handleChange(event) {
