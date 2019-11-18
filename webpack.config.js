@@ -3,13 +3,14 @@ module.exports = {
   output: {
     path: "/dist/assets",
     filename: "bundle.js",
-    publicPath: "assets"
+    publicPath: "assets",
   },
   devServer: {
     inline: true,
     contentBase: "./dist",
     port: 3000,
-    host: '0.0.0.0'
+    host: '0.0.0.0',
+    historyApiFallback: true,
   },
   module: {
     rules: [
