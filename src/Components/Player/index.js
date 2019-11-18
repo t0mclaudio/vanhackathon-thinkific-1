@@ -14,7 +14,7 @@ export default class Player extends React.Component {
   }
 
   componentWillReceiveProps(props) {
-    this.setState({url: props.url})
+    this.setState({ url: props.url })
   }
 
   togglePlayPause() {
@@ -69,8 +69,8 @@ export default class Player extends React.Component {
       <div style={{ position: 'relative' }} >
         {this.state.cover ? <Cover /> : null}
         <div style={{ pointerEvents: 'none' }}>
-          <ReactPlayer 
-            url= {this.state.url}
+          <ReactPlayer
+            url={this.state.url}
             config={{
               wistia: {
                 options: {
@@ -84,9 +84,9 @@ export default class Player extends React.Component {
             onProgress={state => this.onProgress(state)} />
         </div>
         <button onClick={() => this.togglePlayPause()} >
-          { this.state.playing ? 'Pause' : 'Play' }
+          {this.state.playing ? 'Pause' : 'Play'}
         </button>
-        <h3>{this.state.elapsed}</h3>
+        <span>{this.state.elapsed}</span>
       </div>
     )
   }
