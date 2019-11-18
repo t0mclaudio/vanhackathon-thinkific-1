@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactPlayer from 'react-player';
-import overlay from './Overlay';
+import Overlay from './Overlay';
 
 export default class Player extends React.Component {
   constructor(props) {
@@ -9,7 +9,8 @@ export default class Player extends React.Component {
       url: this.props.url,
       playing: false,
       currentSecond: 0,
-      overlay: false
+      overlay: false,
+      elapsed: 0
     }
   }
 
@@ -62,8 +63,11 @@ export default class Player extends React.Component {
     return `${pad(hours, 2)}:${pad(minutes, 2)}:${pad(seconds, 2)}`
   }
 
-  reportCurrentSecond() {
-    return this.state.currentSecond
+  reportTime() {
+    return {
+      currentSecond: this.state.currentSecond,
+      elapsed: this.state.elapsed
+    }
   }
 
   reportReady() {
