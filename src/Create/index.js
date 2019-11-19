@@ -53,31 +53,34 @@ export default class Create extends React.Component {
 
   render() {
     return (
-      <div className="row mt-3" style={{width: '990px'}}>
+      <div className="row mt-3" style={{ width: '990px' }}>
         <Canvas>
-          {this.state.isComposing ?
-            <ComposerWrapper
-              state={this.state}
-              closeComposer={() => this.closeComposer()}
-              updateModalModule={(id) => this.updateModalModule(id)}>
-              <Composer
+          <div style={{ backgroundColor: '#222f3e' }}>
+            {this.state.isComposing ?
+              <ComposerWrapper
                 state={this.state}
-                updateModalModule={(id) => this.updateModalModule(id)}
-                handleSubmit={data => this.handleSubmit(data)} />
-            </ComposerWrapper>
-            : ""}
-          {this.state.isInfoSet ?
-            <Player
-              info={this.state.info}
-              ref={this.player}
-              allowInsert={true}
-              handleInsertClick={time => this.handleInsertClick(time)}
-            /> :
-            <Form handleInfoSubmit={info => this.handleInfoSubmit(info)} />
-          }
+                closeComposer={() => this.closeComposer()}
+                updateModalModule={(id) => this.updateModalModule(id)}>
+                <Composer
+                  state={this.state}
+                  updateModalModule={(id) => this.updateModalModule(id)}
+                  handleSubmit={data => this.handleSubmit(data)} />
+              </ComposerWrapper>
+              : ""}
+            {this.state.isInfoSet ?
+              <Player
+                info={this.state.info}
+                ref={this.player}
+                allowInsert={true}
+                handleInsertClick={time => this.handleInsertClick(time)}
+              /> :
+              <Form handleInfoSubmit={info => this.handleInfoSubmit(info)} />
+            }
+          </div>
+          {this.state.isInfoSet ? <h2>{this.state.info.title}</h2> : "" }
         </Canvas>
-        {this.state.isInfoSet ? <Questions state={this.state.questions} /> : "" }
-        
+        {this.state.isInfoSet ? <Questions state={this.state.questions} /> : ""}
+
       </div>
     )
   }
