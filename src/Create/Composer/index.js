@@ -1,6 +1,6 @@
 import React from 'react';
 import SelectQuestion from './SelectQuestion';
-import FillTheBlank from './FillTheBlank';
+import Identification from './Identification';
 import MultipleChoice from './MultipleChoice';
 
 export default (props) => {
@@ -8,7 +8,7 @@ export default (props) => {
     case "A":
       return <SelectQuestion updateModalModule={(id) => props.updateModalModule(id)} />
     case "B":
-      return <FillTheBlank time={props.state.time.currentSecond} handleSubmit={data => props.handleSubmit(data) } />
+      return <Identification time={props.state.time.currentSecond} handleSubmit={data => props.handleSubmit(data) } />
     case "C":
       return <MultipleChoice time={props.state.time.currentSecond} handleSubmit={data => props.handleSubmit(data) } />
     default:
