@@ -11,7 +11,7 @@ export default (props) => {
 const style = {
   position: 'relative',
   width: '640px',
-  height: '390px',
+  minHeight: '390px',
   backgroundColor: '#222f3e',
   borderRadius: '4px'
 }
