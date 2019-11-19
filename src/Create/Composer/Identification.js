@@ -6,7 +6,7 @@ export default class FillTheBlank extends React.Component {
     this.state = {
       question: "",
       answer: "",
-      time: props.time.time,
+      time: props.time.currentSecond,
       elapsed: props.time.elapsed,
       type: "identification"
     }
