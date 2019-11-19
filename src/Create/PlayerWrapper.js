@@ -3,7 +3,7 @@ import React from 'react';
 export default (props) => {
   return (
     <div style={style}>
-      {props.state.info.url ? props.children : "" }
+      {props.children}
     </div>
   )
 }

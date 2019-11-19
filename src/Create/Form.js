@@ -23,26 +23,28 @@ export default class Form extends React.Component {
 
   render() {
     return (
-      this.props.set ?
-        ""
-        :
-        <form onSubmit={e => this.handleInfoSubmit(e)}>
-          <div className="form-group">
-            <label htmlFor="title">Please enter title</label>
-            <input id="title" className="form-control" type="text" name="title" onChange={e => this.handleChange(e)} value={this.state.title} />
-          </div>
-          <div className="form-group">
-            <label htmlFor="description">Please enter description</label>
-            <textarea id="description" className="form-control" type="url" name="description" onChange={e => this.handleChange(e)} value={this.state.description} />
-          </div>
-          <div className="form-group">
-            <label htmlFor="urlfield">Please enter URL</label>
-            <input id="urlfield" className="form-control" type="url" name="url" onChange={e => this.handleChange(e)} value={this.state.url} />
-          </div>
+      <form onSubmit={e => this.handleInfoSubmit(e)} style={{padding: '15px'}}>
+        <div className="form-group">
+          <label htmlFor="title" style={style.label} >Please enter title</label>
+          <input id="title" className="form-control" type="text" name="title" onChange={e => this.handleChange(e)} value={this.state.title} />
+        </div>
+        <div className="form-group">
+          <label htmlFor="description" style={style.label}>Please enter description</label>
+          <textarea id="description" className="form-control" type="url" name="description" onChange={e => this.handleChange(e)} value={this.state.description} />
+        </div>
+        <div className="form-group">
+          <label htmlFor="urlfield" style={style.label}>Please enter URL</label>
+          <input id="urlfield" className="form-control" type="url" name="url" onChange={e => this.handleChange(e)} value={this.state.url} />
+        </div>
 
-          <input type="submit" className="btn btn-warning" />
-        </form>
+        <input type="submit" className="btn btn-warning" />
+      </form>
     )
   }
+}
 
+const style = {
+  label: {
+    color: 'white'
+  }
 }

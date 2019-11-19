@@ -53,9 +53,11 @@ export default class Create extends React.Component {
   render() {
     return (
       <div className="mt-3">
-        <Form set={this.state.infoIsSet} handleInfoSubmit={info => this.handleInfoSubmit(info)} />
         <PlayerWrapper state={this.state}>
-          <Player info={this.state.info} ref={this.player} />
+          {this.state.infoIsSet ? 
+          <Player info={this.state.info} ref={this.player} /> :
+          <Form handleInfoSubmit={info => this.handleInfoSubmit(info)} />
+          }   
         </PlayerWrapper>
         <NewButton state={this.state} openModal={() => this.openModal()} />
         <ModalWrapper state={this.state}>
