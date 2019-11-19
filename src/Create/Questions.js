@@ -7,9 +7,9 @@ export default props => {
   return (
     <div className="col-4" style={{ padding: '0 10px' }}>
       {props.state.length > 0 ?
-        props.state.map(question => {
+        props.state.map((question, index) => {
           return (
-            <div style={style.question}>
+            <div key={index} style={style.question}>
               <small>{`${question.type.toUpperCase()}`}</small>
               <p>{`${question.question}`}</p>
               <small><FontAwesomeIcon style={style.clock} icon={faClock} /> {`${question.elapsed}`}</small>
