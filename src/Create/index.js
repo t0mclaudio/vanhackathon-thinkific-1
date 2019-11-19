@@ -15,7 +15,8 @@ export default class Create extends React.Component {
       isComposing: false,
       time: {},
       activeInModal: 'A',
-      questions: []
+      questions: [],
+      stamps: []
     }
     this.player = React.createRef();
   }
@@ -43,12 +44,25 @@ export default class Create extends React.Component {
   handleSubmit(data) {
     let questions = this.state.questions;
     questions.push(data)
-    this.setState({ questions: questions })
+    let stamps = new Array() 
+    questions.map(q => {
+      console.log(q)
+      stamps.push(q.time)
+    })
+    stamps.sort()
+    this.setState({ questions: questions, stamps:stamps })
     this.closeComposer()
   }
 
   handleInsertClick(time) {
     this.openComposer()
+  }
+
+  reportElapsedSeconds(elapsed) {
+    if (this.state.stamps.includes(elapsed)) {
+      this.player.current.pause()
+      this.player.current.seekTo(elapsed) // go to next second
+    }
   }
 
   render() {
@@ -72,6 +86,7 @@ export default class Create extends React.Component {
                 info={this.state.info}
                 ref={this.player}
                 allowInsert={true}
+                reportElapsedTime={(e) => this.reportElapsedSeconds(e)}
                 handleInsertClick={time => this.handleInsertClick(time)}
               /> :
               <Form handleInfoSubmit={info => this.handleInfoSubmit(info)} />

@@ -34,10 +34,7 @@ export default class Player extends React.Component {
     console.log(state)
     let elapsedSeconds = this.convertSecondsToInt(state.playedSeconds)
     this.timeElapsed(elapsedSeconds);
-    if ([5, 10].includes(elapsedSeconds)) {
-      this.player.seekTo(elapsedSeconds) // go to next second
-      this.pause()
-    }
+    this.props.reportElapsedTime(elapsedSeconds)
     this.setState({ played: state.played })
   }
 
@@ -91,6 +88,10 @@ export default class Player extends React.Component {
       currentSecond: this.state.currentSecond,
       elapsed: this.state.elapsed
     })
+  }
+
+  seekTo(sec) {
+    this.player.seekTo(sec)
   }
 
   ref = player => {
