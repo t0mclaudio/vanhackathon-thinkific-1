@@ -21,7 +21,7 @@ describe('Test AppComponent', () => {
     const wrapper = mount(<App />);
     let links = wrapper.find(Link);
     let router = wrapper.find(Router)
-    expect(links.length).toEqual(3);
+    expect(links.length).toEqual(1);
     expect(router.length).toEqual(1);
   })
 })
