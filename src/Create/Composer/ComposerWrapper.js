@@ -1,16 +1,29 @@
 import React from 'react';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTimesCircle, faArrowAltCircleLeft } from '@fortawesome/free-solid-svg-icons'
+
 export default props => {
   return (
     <div style={style.overlay}>
-      <span
-        id="closePortalBtn"
-        style={style.closePortalBtn}
-        onClick={() => props.closeComposer()}>close [x]</span>
-      {props.state.currentModule !== "A" ?
-        <button onClick={() => props.updateModalModule("A")}>Back</button> : ""}
-      <h3>Prompt will be positioned at {props.state.time.elapsed}</h3>
+      <div style={style.nav}>
+        <span>
+          {props.state.currentModule !== "A" ?
+            <FontAwesomeIcon 
+              style={style.open} 
+              icon={faArrowAltCircleLeft} 
+              onClick={() => props.updateModalModule("A")} />
+            : "" }
+        </span>
+        <span style={{textAlign: 'right'}}>
+            <FontAwesomeIcon 
+              style={style.close} 
+              icon={faTimesCircle} 
+              onClick={() => props.closeComposer()} />
+        </span>
+      </div>
       {props.children}
+      <p style={style.text}>Prompt will be positioned at {props.state.time.elapsed}</p>
     </div>
   )
 }
@@ -23,15 +36,29 @@ const style = {
     zIndex: "99",
     position: 'absolute',
     borderRadius: '4px',
+    padding: '15px',
+    color: 'white'
   },
-  closePortalBtn: {
-    display: 'block',
-    width: '100%',
+  close: {
     textAlign: 'right',
-    fontSize: '1em',
-    padding: '5px',
-    color: 'silver',
-    border: 'none',
+    fontSize: '28px',
     cursor: 'pointer',
+  },
+  open: {
+    fontSize: '28px',
+    cursor: 'pointer',
+  },
+  nav: {
+    display: 'grid',
+    gridTemplateColumns: '1fr 1fr',
+    marginBottom: "15px"
+  },
+  text: {
+    position: 'absolute',
+    bottom: '15px',
+    right: '15px',
+    fontSize: '18px',
+    textAlign: 'right',
   }
+
 }
