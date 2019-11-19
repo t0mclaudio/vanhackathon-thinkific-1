@@ -6,7 +6,7 @@ export default class MultipleChoice extends React.Component {
     this.state = {
       question: "",
       answer: "",
-      choice:"",
+      choice: "",
       choices: [],
       time: props.time,
       type: 'multiple choice'
@@ -18,7 +18,6 @@ export default class MultipleChoice extends React.Component {
   }
 
   handleSubmit() {
-    console.log(this.state)
     this.props.handleSubmit(this.state)
   }
 
@@ -27,34 +26,49 @@ export default class MultipleChoice extends React.Component {
     let choices = this.state.choices
     let choice = this.state.choice
     choices.push(choice)
-    this.setState({choices:choices, choice: ""})
+    this.setState({ choices: choices, choice: "" })
   }
 
   render() {
     return (
-     <div>
-       <label htmlFor="question">Please enter your question</label>
-       <textarea id="question" name="question" value={this.state.question} onChange={e => this.handleChange(e)} />
-       <label htmlFor="answer">Please enter corrent Answer</label>
-       <input id="answer" type="text" name="answer" value={this.state.answer} onChange={e => this.handleChange(e)}  />
-
-       <form onSubmit={e => this.handleChoiceSubmit(e)}>
-         <label htmlFor="choice">Please enter your choices</label>
-         <input id="choice" name="choice" onChange={e => this.handleChange(e)} value={this.state.choice} />
-         <input type="submit" value="Add" />
+      <div>
+        <div className="form-group">
+          <label htmlFor="question">Please enter your question</label>
+          <textarea id="question" className="form-control" name="question" value={this.state.question} onChange={e => this.handleChange(e)} />
+        </div>
+        <div className="form-group">
+          <label htmlFor="answer">What is the correct answer?</label>
+          <input id="answer" className="form-control" type="text" name="answer" value={this.state.answer} onChange={e => this.handleChange(e)} />
+        </div>
+        <form class="form-inline" onSubmit={e => this.handleChoiceSubmit(e)}>
+          <div className="form-group">
+            <input id="choice" name="choice" onChange={e => this.handleChange(e)} value={this.state.choice} className="form-control" />
+            <input type="submit" value="Add to choices" className="btn btn-primary" />
+          </div>
+        </form>
         <div>{
           this.state.choices.map(choice => {
             return (
-              <div key={choice} style={{padding: '10px', border: '1px solid gray'}}>
+              <div key={choice} style={style.choice}>
                 {choice}
-              </div> 
+              </div>
             )
           })
-          }</div>
-       </form>
-       <button onClick={e => this.handleSubmit(e)}>Submit</button>
+        }</div>
 
-     </div>
+        <button onClick={e => this.handleSubmit(e)} className="btn btn-warning">Submit</button>
+
+      </div >
     )
+  }
+}
+
+const style = {
+  choice : {
+    padding: '10px', 
+    border: '1px solid gray', 
+    margin: '10px 0',
+    borderRadius: '4px',
+    fontSize: '18px'
   }
 }
