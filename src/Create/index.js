@@ -5,6 +5,8 @@ import Form from './Form';
 import Canvas from './Canvas';
 import Player from '../Components/Player';
 import Questions from './Questions';
+import { Link } from 'react-router-dom';
+
 
 export default class Create extends React.Component {
   constructor(props) {
@@ -65,6 +67,10 @@ export default class Create extends React.Component {
     }
   }
 
+  handleViewVideo() {
+    this.props.handleViewVideo(this.state)
+  }
+
   render() {
     return (
       <div className="row mt-3" style={{ width: '990px' }}>
@@ -93,6 +99,9 @@ export default class Create extends React.Component {
             }
           </div>
           {this.state.isInfoSet ? <h2>{this.state.info.title}</h2> : "" }
+          {this.state.isInfoSet && this.state.stamps.length > 0 ?
+          <Link to="/view" className="btn btn-success" onClick={() => this.handleViewVideo()} >View video</Link>  
+          : "" }
         </Canvas>
         {this.state.isInfoSet ? <Questions state={this.state.questions} /> : ""}
 
