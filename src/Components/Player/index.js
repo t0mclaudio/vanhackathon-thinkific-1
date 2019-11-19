@@ -2,6 +2,9 @@ import React from 'react';
 import ReactPlayer from 'react-player';
 import Overlay from './Overlay';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlayCircle, faPauseCircle } from '@fortawesome/free-solid-svg-icons'
+
 export default class Player extends React.Component {
   constructor(props) {
     super(props);
@@ -36,7 +39,7 @@ export default class Player extends React.Component {
       this.player.seekTo(elapsedSeconds) // go to next second
       this.pause()
     }
-    this.setState({played: state.played})
+    this.setState({ played: state.played })
   }
 
   convertSecondsToInt(time) {
@@ -110,7 +113,7 @@ export default class Player extends React.Component {
         </div>
         <div>
           <input
-            style={{width:'100%'}}
+            style={{ width: '100%' }}
             type='range' min={0} max={1} step='any'
             value={this.state.played}
             onMouseDown={this.handleSeekMouseDown}
@@ -118,14 +121,36 @@ export default class Player extends React.Component {
             onMouseUp={this.handleSeekMouseUp}
           />
         </div>
-        {this.state.ready ?
-          <button onClick={() => this.togglePlayPause()} >
-            {this.state.playing ? 'Pause' : 'Play'}
-          </button> : ""
-        }
-
-        <span>{this.state.elapsed}</span>
+        <div style={style.footerWrapper}>
+          <div style={style.buttons}>
+            {this.state.playing ?
+              <FontAwesomeIcon icon={faPauseCircle} onClick={() => this.togglePlayPause()} style={style.button} /> :
+              <FontAwesomeIcon icon={faPlayCircle} onClick={() => this.togglePlayPause()} style={style.button} />
+            }
+          </div>
+          <span style={style.time}>{this.state.elapsed}</span>
+        </div>
       </div>
     )
+  }
+}
+
+const style = {
+  footerWrapper: {
+    display: 'grid',
+    gridTemplateColumns: 'auto auto',
+    alignItems: 'center'
+  },
+  buttons: {
+    padding: '10px'
+  },
+  button: {
+    color: '#ecf0f1',
+    fontSize: '32px'
+  },
+  time: {
+    textAlign: 'right',
+    fontSize: '22px',
+    paddingRight: '15px'
   }
 }
