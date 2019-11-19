@@ -11,7 +11,7 @@ export default class Player extends React.Component {
       url: this.props.info.url,
       playing: false,
       currentSecond: 0,
-      elapsed: 0,
+      elapsed: '00:00:00',
       seeking: false,
       played: 0,
       allowInsert: this.props.allowInsert || false
