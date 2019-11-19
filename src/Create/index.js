@@ -3,19 +3,17 @@ import Modal from '../Components/Modal';
 import Composer from './Composer';
 import ComposerWrapper from './Composer/ComposerWrapper';
 import Form from './Form';
-import PlayerWrapper from './PlayerWrapper';
+import Canvas from './Canvas';
 import Player from '../Components/Player';
 import ModalWrapper from './Composer/ModalWrapper';
-import NewButton from './NewButton';
 
 export default class Create extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       info: {},
-      infoIsSet: false,
-      url: "",
-      openModal: false,
+      isInfoSet: false,
+      isComposing: false,
       time: {},
       activeInModal: 'A',
       prompts: []
@@ -24,19 +22,19 @@ export default class Create extends React.Component {
   }
 
   handleInfoSubmit(info) {
-    this.setState({info:info, infoIsSet:true})
+    this.setState({ info: info, isInfoSet: true })
   }
 
-  openModal() {
+  openComposer() {
     this.player.current.pause();
     this.setState({
-      openModal: true,
+      isComposing: true,
       time: this.player.current.reportTime()
     })
   }
 
-  closeModal() {
-    this.setState({ openModal: false, activeInModal: 'A' })
+  closeComposer() {
+    this.setState({ isComposing: false, activeInModal: 'A' })
   }
 
   updateModalModule(id) {
@@ -47,36 +45,44 @@ export default class Create extends React.Component {
     let prompts = this.state.prompts;
     prompts.push(data)
     this.setState({ prompts: prompts })
-    this.closeModal()
+    this.closeComposer()
+  }
+
+  handleInsertClick(time) {
+    this.openComposer()
   }
 
   render() {
     return (
       <div className="mt-3">
-        <PlayerWrapper state={this.state}>
-          {this.state.infoIsSet ? 
-          <Player info={this.state.info} ref={this.player} /> :
-          <Form handleInfoSubmit={info => this.handleInfoSubmit(info)} />
-          }   
-        </PlayerWrapper>
-        <NewButton state={this.state} openModal={() => this.openModal()} />
-        <ModalWrapper state={this.state}>
-          <Modal toggleShow={() => this.closeModal()}>
-            <ComposerWrapper state={this.state} updateModalModule={(id) => this.updateModalModule(id)} >
-              <Composer 
-                state={this.state} 
-                updateModalModule={(id) => this.updateModalModule(id)} 
-                handleSubmit={data => this.handleSubmit(data)}
-                />
+        <Canvas>
+          {this.state.isComposing ?
+            <ComposerWrapper
+              state={this.state}
+              closeComposer={() => this.closeComposer()}
+              updateModalModule={(id) => this.updateModalModule(id)}>
+              <Composer
+                state={this.state}
+                updateModalModule={(id) => this.updateModalModule(id)}
+                handleSubmit={data => this.handleSubmit(data)} />
             </ComposerWrapper>
-          </Modal>
-        </ModalWrapper>
+            : ""}
+          {this.state.isInfoSet ?
+            <Player
+              info={this.state.info}
+              ref={this.player}
+              allowInsert={true}
+              handleInsertClick={time => this.handleInsertClick(time)}
+            /> :
+            <Form handleInfoSubmit={info => this.handleInfoSubmit(info)} />
+          }
+        </Canvas>
         <div>
-          { this.state.prompts.map(prompt => {
+          {this.state.prompts.map(prompt => {
             return (
-              <div style={{padding:'10px', border: '1px solid gray'}}>{`${prompt.question} : ${prompt.answer}`}</div>
+              <div style={{ padding: '10px', border: '1px solid gray' }}>{`${prompt.question} : ${prompt.answer}`}</div>
             )
-            
+
           })}
         </div>
       </div>
