@@ -30,8 +30,9 @@ export default props => {
 
 const style = {
   overlay: {
+    display: 'grid',
     width: '640px',
-    height: '100%',
+    minHeight: '427px',
     backgroundColor: '#222f3e',
     zIndex: "99",
     position: 'absolute',
@@ -54,9 +55,6 @@ const style = {
     marginBottom: "15px"
   },
   text: {
-    position: 'absolute',
-    bottom: '15px',
-    right: '15px',
     fontSize: '18px',
     textAlign: 'right',
   }
