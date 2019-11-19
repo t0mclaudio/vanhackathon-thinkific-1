@@ -1,10 +1,17 @@
 import React from 'react';
-import Player from '../Components/Player';
 
 export default (props) => {
   return (
-    <div style={{ position: 'relative', width: '640px', height: '390px', backgroundColor: 'black' }}>
+    <div style={style}>
       {props.state.url ? props.children : "" }
     </div>
   )
+}
+
+const style = {
+  position: 'relative',
+  width: '640px',
+  height: '390px',
+  backgroundColor: '#222f3e',
+  borderRadius: '4px'
 }
