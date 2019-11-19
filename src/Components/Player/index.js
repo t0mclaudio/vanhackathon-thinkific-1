@@ -10,7 +10,9 @@ export default class Player extends React.Component {
       playing: false,
       currentSecond: 0,
       overlay: false,
-      elapsed: 0
+      elapsed: 0,
+      seeking: false,
+      played: 0
     }
   }
 
@@ -40,6 +42,7 @@ export default class Player extends React.Component {
       this.player.seekTo(elapsedSeconds) // go to next second
       this.pause()
     }
+    this.setState({played: state.played})
   }
 
   convertSecondsToInt(time) {
@@ -74,6 +77,19 @@ export default class Player extends React.Component {
     this.setState({ ready: true })
   }
 
+  handleSeekMouseDown = e => {
+    this.setState({ seeking: true })
+  }
+
+  handleSeekChange = e => {
+    this.setState({ played: parseFloat(e.target.value) })
+  }
+
+  handleSeekMouseUp = e => {
+    this.setState({ seeking: false })
+    this.player.seekTo(parseFloat(e.target.value))
+  }
+
   ref = player => {
     this.player = player
   }
@@ -97,6 +113,16 @@ export default class Player extends React.Component {
             onReady={() => this.reportReady()}
             playing={this.state.playing}
             onProgress={state => this.onProgress(state)} />
+        </div>
+        <div>
+          <input
+            style={{width:'100%'}}
+            type='range' min={0} max={1} step='any'
+            value={this.state.played}
+            onMouseDown={this.handleSeekMouseDown}
+            onChange={this.handleSeekChange}
+            onMouseUp={this.handleSeekMouseUp}
+          />
         </div>
         {this.state.ready ?
           <button onClick={() => this.togglePlayPause()} >
