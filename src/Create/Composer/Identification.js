@@ -6,11 +6,13 @@ export default class FillTheBlank extends React.Component {
     this.state = {
       question: "",
       answer: "",
-      time: props.time,
+      time: props.time.time,
+      elapsed: props.time.elapsed,
       type: "identification"
     }
   }
   handleChange(event) {
+    console.log(event.target.name)
     this.setState({ [event.target.name]: event.target.value });
     //console.log(this.state)
   }

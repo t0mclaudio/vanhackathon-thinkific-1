@@ -8,7 +8,8 @@ export default class MultipleChoice extends React.Component {
       answer: "",
       choice: "",
       choices: [],
-      time: props.time,
+      time: props.time.time,
+      elapsed: props.time.elapsed,
       type: 'multiple choice'
     }
   }
