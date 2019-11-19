@@ -6,7 +6,7 @@ import { faClock } from '@fortawesome/free-solid-svg-icons'
 export default props => {
   return (
     <div className="col-4" style={{ padding: '0 10px' }}>
-      {props.state ?
+      {props.state.length > 0 ?
         props.state.map(question => {
           return (
             <div style={style.question}>
