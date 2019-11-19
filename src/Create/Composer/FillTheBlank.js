@@ -24,11 +24,15 @@ export default class FillTheBlank extends React.Component {
   render() {
     return (
       <form onSubmit={e => this.handleSubmit(e)}>
-        <label htmlFor="question">Question</label>
-        <textarea id="question" name="question" value={this.state.question} onChange={e => this.handleChange(e)}></textarea>
-        <label htmlFor="answer">Answer</label>
-        <input id="answer" type="text" name="answer" value={this.state.answer} onChange={e => this.handleChange(e)}></input>
-        <input type="submit" value="Submit" />
+        <div className="form-group">
+          <label htmlFor="question">Question</label>
+          <textarea id="question" name="question" value={this.state.question} onChange={e => this.handleChange(e)} className="form-control" />
+        </div>
+        <div className="form-group">
+          <label htmlFor="answer">Answer</label>
+          <input id="answer" type="text" name="answer" value={this.state.answer} onChange={e => this.handleChange(e)} className="form-control" />
+        </div>
+        <input type="submit" value="Submit" className="btn btn-warning" />
       </form>
     )
   }
