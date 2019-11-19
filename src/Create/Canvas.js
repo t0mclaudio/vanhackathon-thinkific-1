@@ -2,7 +2,7 @@ import React from 'react';
 
 export default (props) => {
   return (
-    <div style={style.wrapper}>
+    <div style={style.wrapper} className="col-8">
       {props.children}
     </div>
   )
