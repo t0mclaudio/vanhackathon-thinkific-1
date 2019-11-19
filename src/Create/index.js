@@ -1,11 +1,10 @@
 import React from 'react';
-import Modal from '../Components/Modal';
 import Composer from './Composer';
 import ComposerWrapper from './Composer/ComposerWrapper';
 import Form from './Form';
 import Canvas from './Canvas';
 import Player from '../Components/Player';
-import ModalWrapper from './Composer/ModalWrapper';
+import Questions from './Questions';
 
 export default class Create extends React.Component {
   constructor(props) {
@@ -16,7 +15,7 @@ export default class Create extends React.Component {
       isComposing: false,
       time: {},
       activeInModal: 'A',
-      prompts: []
+      questions: []
     }
     this.player = React.createRef();
   }
@@ -42,9 +41,9 @@ export default class Create extends React.Component {
   }
 
   handleSubmit(data) {
-    let prompts = this.state.prompts;
-    prompts.push(data)
-    this.setState({ prompts: prompts })
+    let questions = this.state.questions;
+    questions.push(data)
+    this.setState({ questions: questions })
     this.closeComposer()
   }
 
@@ -54,7 +53,7 @@ export default class Create extends React.Component {
 
   render() {
     return (
-      <div className="mt-3">
+      <div className="row mt-3" style={{width: '990px'}}>
         <Canvas>
           {this.state.isComposing ?
             <ComposerWrapper
@@ -77,14 +76,8 @@ export default class Create extends React.Component {
             <Form handleInfoSubmit={info => this.handleInfoSubmit(info)} />
           }
         </Canvas>
-        <div>
-          {this.state.prompts.map(prompt => {
-            return (
-              <div style={{ padding: '10px', border: '1px solid gray' }}>{`${prompt.question} : ${prompt.answer}`}</div>
-            )
-
-          })}
-        </div>
+        {this.state.isInfoSet ? <Questions state={this.state.questions} /> : "" }
+        
       </div>
     )
   }
