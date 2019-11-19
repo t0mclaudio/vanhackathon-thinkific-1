@@ -1,9 +1,8 @@
 import React from 'react';
 import ReactPlayer from 'react-player';
-import Overlay from './Overlay';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlayCircle, faPauseCircle } from '@fortawesome/free-solid-svg-icons'
+import { faPlayCircle, faPauseCircle, faFile } from '@fortawesome/free-solid-svg-icons'
 
 export default class Player extends React.Component {
   constructor(props) {
@@ -12,10 +11,10 @@ export default class Player extends React.Component {
       url: this.props.info.url,
       playing: false,
       currentSecond: 0,
-      overlay: false,
       elapsed: 0,
       seeking: false,
-      played: 0
+      played: 0,
+      allowInsert: this.props.allowInsert || false
     }
   }
 
@@ -87,14 +86,20 @@ export default class Player extends React.Component {
     this.player.seekTo(parseFloat(e.target.value))
   }
 
+  handleInsertClick() {
+    this.props.handleInsertClick({
+      currentSecond: this.state.currentSecond,
+      elapsed: this.state.elapsed
+    })
+  }
+
   ref = player => {
     this.player = player
   }
 
   render() {
     return (
-      <div style={{ position: 'relative' }} >
-        {this.state.overlay ? <Overlay /> : null}
+      <React.Fragment>
         <div style={{ pointerEvents: 'none' }}>
           <ReactPlayer
             ref={this.ref}
@@ -125,12 +130,22 @@ export default class Player extends React.Component {
           <div style={style.buttons}>
             {this.state.playing ?
               <FontAwesomeIcon icon={faPauseCircle} onClick={() => this.togglePlayPause()} style={style.button} /> :
-              <FontAwesomeIcon icon={faPlayCircle} onClick={() => this.togglePlayPause()} style={style.button} />
+              <div>
+                <FontAwesomeIcon icon={faPlayCircle} onClick={() => this.togglePlayPause()} style={style.button} />
+                {this.state.allowInsert ?
+                  <FontAwesomeIcon
+                    icon={faFile}
+                    onClick={() => this.handleInsertClick()}
+                    style={style.insertButton} /> :
+                  ""
+                }
+
+              </div>
             }
           </div>
           <span style={style.time}>{this.state.elapsed}</span>
         </div>
-      </div>
+      </React.Fragment>
     )
   }
 }
@@ -143,6 +158,13 @@ const style = {
   },
   buttons: {
     padding: '10px'
+  },
+
+  insertButton: {
+    marginLeft: '10px',
+    color: '#ecf0f1',
+    fontSize: '32px',
+
   },
   button: {
     color: '#ecf0f1',
