@@ -1,21 +1,48 @@
 import React from 'react';
 
-export default (props) => {
-  return (
-    props.state.url ?
-      <button onClick={() => props.clearURL()}>Change Video</button>
-      :
-      <form onSubmit={e => props.submitUrl(e)}>
-        {/* <label htmlFor="title">Please enter title</label>
-        <input id="title" type="text" name="title" required/>
+export default class Form extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      url: "",
+      title: "",
+      description: ""
+    }
+  }
 
-        <label htmlFor="description">Please enter description</label>
-        <textarea id="description" type="url" name="description" required/> */}
+  handleChange(e) {
+    this.setState({
+      [e.target.name]: e.target.value
+    })
+  }
 
-        <label htmlFor="urlfield">Please enter URL</label>
-        <input id="urlfield" type="url" name="url" required/>
+  handleInfoSubmit(e) {
+    e.preventDefault()
+    this.props.handleInfoSubmit(this.state)
+  }
 
-        <input type="submit" />
-      </form>
-  )
+  render() {
+    return (
+      this.props.set ?
+        ""
+        :
+        <form onSubmit={e => this.handleInfoSubmit(e)}>
+          <div className="form-group">
+            <label htmlFor="title">Please enter title</label>
+            <input id="title" className="form-control" type="text" name="title" onChange={e => this.handleChange(e)} value={this.state.title} />
+          </div>
+          <div className="form-group">
+            <label htmlFor="description">Please enter description</label>
+            <textarea id="description" className="form-control" type="url" name="description" onChange={e => this.handleChange(e)} value={this.state.description} />
+          </div>
+          <div className="form-group">
+            <label htmlFor="urlfield">Please enter URL</label>
+            <input id="urlfield" className="form-control" type="url" name="url" onChange={e => this.handleChange(e)} value={this.state.url} />
+          </div>
+
+          <input type="submit" className="btn btn-warning" />
+        </form>
+    )
+  }
+
 }

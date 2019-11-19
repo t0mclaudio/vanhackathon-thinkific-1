@@ -12,6 +12,8 @@ export default class Create extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      info: {},
+      infoIsSet: false,
       url: "",
       openModal: false,
       time: {},
@@ -21,9 +23,8 @@ export default class Create extends React.Component {
     this.player = React.createRef();
   }
 
-  submitUrl(e) {
-    e.preventDefault()
-    this.setState({ url: e.target.elements.url.value })
+  handleInfoSubmit(info) {
+    this.setState({info:info, infoIsSet:true})
   }
 
   openModal() {
@@ -36,10 +37,6 @@ export default class Create extends React.Component {
 
   closeModal() {
     this.setState({ openModal: false, activeInModal: 'A' })
-  }
-
-  clearURL() {
-    this.setState({ url: "", prompts: [] })
   }
 
   updateModalModule(id) {
@@ -55,10 +52,10 @@ export default class Create extends React.Component {
 
   render() {
     return (
-      <React.Fragment>
-        <Form state={this.state} clearURL={() => this.clearURL()} submitUrl={e => this.submitUrl(e)} />
+      <div className="mt-3">
+        <Form set={this.state.infoIsSet} handleInfoSubmit={info => this.handleInfoSubmit(info)} />
         <PlayerWrapper state={this.state}>
-          <Player url={this.state.url} ref={this.player} />
+          <Player info={this.state.info} ref={this.player} />
         </PlayerWrapper>
         <NewButton state={this.state} openModal={() => this.openModal()} />
         <ModalWrapper state={this.state}>
@@ -80,7 +77,7 @@ export default class Create extends React.Component {
             
           })}
         </div>
-      </React.Fragment>
+      </div>
     )
   }
 }

@@ -2,7 +2,7 @@ import React from 'react';
 
 export default (props) => {
   return (
-    props.state.url ?
+    props.state.info.url ?
       <button onClick={() => props.openModal()}>Create new prompt</button> : ""
   )
 }

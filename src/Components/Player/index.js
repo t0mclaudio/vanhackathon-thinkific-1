@@ -6,19 +6,13 @@ export default class Player extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      url: this.props.url,
+      url: this.props.info.url,
       playing: false,
       currentSecond: 0,
       overlay: false,
       elapsed: 0,
       seeking: false,
       played: 0
-    }
-  }
-
-  componentDidUpdate(previousProps) {
-    if (previousProps.url !== this.props.url) {
-      this.setState({ url: this.props.url })
     }
   }
 
