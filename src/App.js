@@ -17,21 +17,13 @@ export default class App extends React.Component {
         <Router>
           <div className="col-lg-2">
             <ul>
-              <li><Link to="/">Home</Link></li>
-              <li><Link to="/create">Create</Link></li>
-              <li><Link to="/edit">Edit</Link></li>
+              <li><Link to="/">Create</Link></li>
             </ul>
           </div>
           <div className="col-lg-10">
             <Switch>
-              <Route path="/create">
-                <Create />
-              </Route>
-              <Route path="/edit">
-                <Edit />
-              </Route>
               <Route path="/">
-                <Home />
+                <Create />
               </Route>
             </Switch>
           </div>
