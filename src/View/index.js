@@ -71,7 +71,6 @@ export default class View extends React.Component {
                 handleInsertClick={() => console.log('here')}
               />
             </div>
-            <h1>{this.state.data.info.title}</h1>
           </Canvas>
           : <h1 style={{textAlign: 'center'}}>No title found</h1>}
       </React.Fragment>

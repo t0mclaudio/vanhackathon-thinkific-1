@@ -73,7 +73,7 @@ export default class Create extends React.Component {
 
   render() {
     return (
-      <div className="row mt-3" style={{ width: '990px' }}>
+      <React.Fragment>
         <Canvas>
             {this.state.isComposing ?
               <ComposerWrapper
@@ -96,7 +96,6 @@ export default class Create extends React.Component {
               /> :
               <Form handleInfoSubmit={info => this.handleInfoSubmit(info)} />
             }
-          {this.state.isInfoSet ? <h2>{this.state.info.title}</h2> : "" }
           {this.state.isInfoSet && this.state.stamps.length > 0 ?
             <Link to="/view" 
               style={style.viewVideoBtn} 
@@ -105,7 +104,7 @@ export default class Create extends React.Component {
           : "" }
         </Canvas>
         {this.state.isInfoSet ? <Questions state={this.state.questions} /> : ""}
-      </div>
+      </React.Fragment>
     )
   }
 }

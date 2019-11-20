@@ -19,23 +19,21 @@ export default class App extends React.Component {
   }
 
   handleViewVideo(data) {
-    this.setState({data:data})
+    this.setState({ data: data })
   }
 
   render() {
     return (
-      <div className="row">
-        <Router>
-            <Switch>
-              <Route exact path="/">
-                <Create handleViewVideo={data => this.handleViewVideo(data)} />
-              </Route>
-              <Route exact path="/view">
-                <View data={this.state.data} />
-              </Route>
-            </Switch>
-        </Router>
-      </div>
+      <Router>
+        <Switch>
+          <Route exact path="/">
+            <Create handleViewVideo={data => this.handleViewVideo(data)} />
+          </Route>
+          <Route exact path="/view">
+            <View data={this.state.data} />
+          </Route>
+        </Switch>
+      </Router>
     )
   }
 }

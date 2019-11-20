@@ -2,7 +2,7 @@ import React from 'react';
 
 export default (props) => {
   return (
-    <div style={style.wrapper} className="col-8">
+    <div style={style.wrapper}>
       {props.children}
     </div>
   )
@@ -11,8 +11,7 @@ export default (props) => {
 const style = {
   wrapper: {
     position: 'relative',
-    maxWidth: '640px',
-    minHeight: '390px',
+    width: '640px',
     borderRadius: '4px',
     padding: 0,
     backgroundColor: '#222f3e'
