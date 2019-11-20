@@ -63,7 +63,7 @@ export default class Create extends React.Component {
   reportElapsedSeconds(elapsed) {
     if (this.state.stamps.includes(elapsed)) {
       this.player.current.pause()
-      this.player.current.seekTo(elapsed) // go to next second
+      this.player.current.seekTo(elapsed)
     }
   }
 
@@ -75,7 +75,6 @@ export default class Create extends React.Component {
     return (
       <div className="row mt-3" style={{ width: '990px' }}>
         <Canvas>
-          <div style={{ backgroundColor: '#222f3e' }}>
             {this.state.isComposing ?
               <ComposerWrapper
                 state={this.state}
@@ -97,7 +96,6 @@ export default class Create extends React.Component {
               /> :
               <Form handleInfoSubmit={info => this.handleInfoSubmit(info)} />
             }
-          </div>
           {this.state.isInfoSet ? <h2>{this.state.info.title}</h2> : "" }
           {this.state.isInfoSet && this.state.stamps.length > 0 ?
           <Link to="/view" className="btn btn-success" onClick={() => this.handleViewVideo()} >View video</Link>  

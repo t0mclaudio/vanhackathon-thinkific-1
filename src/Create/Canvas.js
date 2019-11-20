@@ -14,7 +14,8 @@ const style = {
     maxWidth: '640px',
     minHeight: '390px',
     borderRadius: '4px',
-    padding: 0
+    padding: 0,
+    backgroundColor: '#222f3e'
   }
 }
 
