@@ -1,14 +1,10 @@
 const path = require('path');
 
-module.exports = {
-  entry: {
-    bundle: "./index.js",
-    embed: "./embed.js"
-  
-  },
+ const bundelScriptConfig = {
+  entry: "./index.js",
   output: {
     path: path.resolve(__dirname, "dist/assets"),
-    filename: "[name].js",
+    filename: "bundle.js",
     publicPath: "assets",
   },
   devServer: {
@@ -33,3 +29,38 @@ module.exports = {
     ]
   }
 }
+
+const embedScriptConfig = {
+  entry: "./embed.js",
+  output: {
+    path: path.resolve(__dirname, "dist/assets"),
+    filename: "embed.js",
+    publicPath: "assets",
+    library: "IVideo",
+    libraryTarget: 'umd',
+    libraryExport: 'default'
+  },
+  devServer: {
+    inline: true,
+    contentBase: "./dist",
+    port: 3000,
+    host: '0.0.0.0',
+    historyApiFallback: true,
+  },
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /(node_modules)/,
+        loader: 'babel-loader'
+      },
+      {
+        test:/\.json$/,
+        exclude: /(node_modules)/,
+        loader: 'json-loader'
+      }
+    ]
+  }
+}  
+
+module.exports = [ bundelScriptConfig, embedScriptConfig ]
