@@ -18,16 +18,12 @@ export default class Player extends React.Component {
     }
   }
 
-  togglePlayPause() {
-    this.state.playing ? this.pause() : this.play()
-  }
-
   play() {
-    this.setState({ playing: true, overlay: false })
+    this.setState({ playing: true })
   }
 
   pause() {
-    this.setState({ playing: false, overlay: true })
+    this.setState({ playing: false })
   }
 
   onProgress(state) {
@@ -55,7 +51,6 @@ export default class Player extends React.Component {
       hours = Math.floor(time / 60 / 60),
       minutes = Math.floor(time / 60) % 60,
       seconds = Math.floor(time - minutes * 60);
-
     return `${pad(hours, 2)}:${pad(minutes, 2)}:${pad(seconds, 2)}`
   }
 
@@ -64,10 +59,6 @@ export default class Player extends React.Component {
       currentSecond: this.state.currentSecond,
       elapsed: this.state.elapsed
     }
-  }
-
-  reportReady() {
-    this.setState({ ready: true })
   }
 
   handleSeekMouseDown = e => {
@@ -130,17 +121,13 @@ export default class Player extends React.Component {
         <div style={style.footerWrapper}>
           <div style={style.buttons}>
             {this.state.playing ?
-              <FontAwesomeIcon icon={faPauseCircle} onClick={() => this.togglePlayPause()} style={style.button} /> :
+              <FontAwesomeIcon icon={faPauseCircle} onClick={() => this.pause()} style={style.button} /> :
               <div>
-                <FontAwesomeIcon icon={faPlayCircle} onClick={() => this.togglePlayPause()} style={style.button} />
+                <FontAwesomeIcon icon={faPlayCircle} onClick={() => this.play()} style={style.button} />
                 {this.state.allowInsert && this.state.currentSecond > 0 ?
-                  <FontAwesomeIcon
-                    icon={faFile}
-                    onClick={() => this.handleInsertClick()}
-                    style={style.insertButton} /> :
+                  <FontAwesomeIcon icon={faFile} onClick={() => this.handleInsertClick()} style={style.insertButton} /> :
                   ""
                 }
-
               </div>
             }
           </div>
