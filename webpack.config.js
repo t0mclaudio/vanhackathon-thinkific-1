@@ -1,10 +1,14 @@
 const path = require('path');
 
 module.exports = {
-  entry: "./index.js",
+  entry: {
+    bundle: "./index.js",
+    embed: "./embed.js"
+  
+  },
   output: {
     path: path.resolve(__dirname, "dist/assets"),
-    filename: "bundle.js",
+    filename: "[name].js",
     publicPath: "assets",
   },
   devServer: {
