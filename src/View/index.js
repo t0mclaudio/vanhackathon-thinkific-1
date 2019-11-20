@@ -16,9 +16,14 @@ export default class View extends React.Component {
         type: 'get email',
         answer: ""
       },
-      data: this.props.data
+      data: this.props.data,
+      embedCode: ""
     }
     this.player = React.createRef();
+  }
+
+  componentWillReceiveProps(props) {
+    this.setState({ embedCode: props.embedCode })
   }
 
   openPrompt() {
@@ -39,7 +44,7 @@ export default class View extends React.Component {
   }
 
   reportElapsedSeconds(elapsed) {
-    if (elapsed === 1) { 
+    if (elapsed === 1) {
       this.player.current.pause();
       this.player.current.seekTo(elapsed);
       this.setState({ prompted: true, question: this.state.getEmail })
@@ -61,7 +66,7 @@ export default class View extends React.Component {
               <QuestionWrapper state={this.state} closePrompt={() => this.closePrompt()}>
                 <Questions q={this.state.question} continue={() => this.continue()} />
               </QuestionWrapper>
-            : "" }
+              : ""}
             <Player
               info={this.state.data.info}
               ref={this.player}
@@ -69,7 +74,13 @@ export default class View extends React.Component {
               handleInsertClick={null}
             />
           </Canvas>
-        : <h1 style={{ textAlign: 'center' }}>No title found</h1>}
+          : <h1 style={{ textAlign: 'center' }}>No title found</h1>}
+        {this.state.embedCode ? 
+          <div style={{width: '640px', marginTop: "15px"}}>
+            <h5>Embed Code</h5>    
+            <textarea readOnly value={this.state.embedCode} className="form-control" style={{height: '237px', fontSize: '13px'}} />
+          </div>
+        : null}
       </React.Fragment>
     )
   }
