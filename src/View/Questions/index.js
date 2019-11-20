@@ -1,4 +1,6 @@
 import React from 'react';
+import Identification from './Identification';
+import Choices from './Choices';
 
 export default class Questions extends React.Component {
   constructor(props) {
@@ -17,15 +19,20 @@ export default class Questions extends React.Component {
     })
   }
 
+  selectAnswer(answer) {
+    this.setState({
+      answer: answer,
+      wrongAnswer: false
+    })
+  }
+
   submitAnswer(e) {
     e.preventDefault()
     let correctAnswer = this.state.question.answer.toLowerCase().trim()
     let answer = this.state.answer.trim()
     if (answer === correctAnswer) {
-      alert(true)
       this.props.continue()
     } else {
-      alert(false)
       this.setState({
         wrongAnswer: true,
       })
@@ -36,24 +43,13 @@ export default class Questions extends React.Component {
     return (
       <div>
         <p>{this.state.question.question}</p>
-        <form onSubmit={(e) => this.submitAnswer(e)}>
-          <input type="text" className={this.state.wrongAnswer ? style.wrong : style.correct} name="answer" value={this.state.answer} onChange={e => this.handleChange(e)} />
-          {this.state.wrongAnswer ?
-            <div>
-              <small id="passwordHelp" className="text-danger">
-                That is the wrong answer. Try again
-              </small>
-            </div>
-            : ""
-          }
-          <input type="submit" className="btn btn-warning mt-4" />
-        </form>
+        {this.state.question.type == "multiple choice" ? 
+          <Choices state={this.state} selectAnswer={ans => this.selectAnswer(ans)} submitAnswer={(e) => this.submitAnswer(e)} />
+        :
+          <Identification state={this.state} handleChange={e => this.handleChange(e)} submitAnswer={e => this.submitAnswer(e)} /> 
+        }
       </div>
     )
   }
 }
 
-const style = {
-  correct: "form-control",
-  wrong: "form-control is-invalid"
-}
