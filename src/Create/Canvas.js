@@ -14,7 +14,8 @@ const style = {
     width: '640px',
     borderRadius: '4px',
     padding: 0,
-    backgroundColor: '#222f3e'
+    backgroundColor: '#222f3e',
+    fontSize: '16px'
   }
 }
 
