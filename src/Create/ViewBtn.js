@@ -5,9 +5,6 @@ import { faEye } from '@fortawesome/free-solid-svg-icons'
 
 export default () => {
   return (
-    <FontAwesomeIcon 
-      style={{fontSize: '28px'}}
-      icon={faEye} 
-      onClick={() => this.togglePlayPause()} />
+    <FontAwesomeIcon style={{fontSize: '28px'}} icon={faEye} />
   )
 }

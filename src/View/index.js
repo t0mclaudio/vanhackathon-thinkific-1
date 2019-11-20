@@ -27,8 +27,9 @@ export default class View extends React.Component {
     this.setState({ prompted: false, activeInModal: 'A' })
   }
 
-  updateModalModule(id) {
-    this.setState({ activeInModal: id })
+  continue() {
+    this.player.current.play()
+    this.setState({ prompted: false })
   }
 
   reportElapsedSeconds(elapsed) {
@@ -38,15 +39,6 @@ export default class View extends React.Component {
       this.player.current.seekTo(elapsed)
       this.setState({ prompted: true, question: question })
     }
-  }
-
-  handleInsertClick(time) {
-    this.openPrompt()
-  }
-
-  continue() {
-    this.player.current.play()
-    this.setState({ prompted: false })
   }
 
   render() {
@@ -63,7 +55,7 @@ export default class View extends React.Component {
               info={this.state.data.info}
               ref={this.player}
               reportElapsedTime={(e) => this.reportElapsedSeconds(e)}
-              handleInsertClick={() => console.log('here')}
+              handleInsertClick={null}
             />
           </Canvas>
         : <h1 style={{ textAlign: 'center' }}>No title found</h1>}
