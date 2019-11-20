@@ -42,9 +42,11 @@ export default class MultipleChoice extends React.Component {
           <input id="answer" className="form-control" type="text" name="answer" value={this.state.answer} onChange={e => this.handleChange(e)} />
         </div>
         <form className="form-inline" onSubmit={e => this.handleChoiceSubmit(e)}>
-          <div className="form-group">
-            <input id="choice" name="choice" onChange={e => this.handleChange(e)} value={this.state.choice} className="form-control" />
-            <input type="submit" value="Add to choices" className="btn btn-primary" />
+          <div className="input-group">
+            <input id="choice" name="choice" onChange={e => this.handleChange(e)} value={this.state.choice} className="form-control" placeholder="Enter Choice" />
+            <div class="input-group-append">
+              <input type="submit" value="Add to choices" className="btn btn-primary" />
+            </div>
           </div>
         </form>
         <div>{
