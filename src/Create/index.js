@@ -5,8 +5,8 @@ import Form from './Form';
 import Canvas from './Canvas';
 import Player from '../Components/Player';
 import Questions from './Questions';
+import ViewBtn from './ViewBtn';
 import { Link } from 'react-router-dom';
-
 
 export default class Create extends React.Component {
   constructor(props) {
@@ -98,12 +98,23 @@ export default class Create extends React.Component {
             }
           {this.state.isInfoSet ? <h2>{this.state.info.title}</h2> : "" }
           {this.state.isInfoSet && this.state.stamps.length > 0 ?
-          <Link to="/view" className="btn btn-success" onClick={() => this.handleViewVideo()} >View video</Link>  
+            <Link to="/view" 
+              style={style.viewVideoBtn} 
+              className="btn btn-success" 
+              onClick={() => this.handleViewVideo()}><ViewBtn/></Link>  
           : "" }
         </Canvas>
         {this.state.isInfoSet ? <Questions state={this.state.questions} /> : ""}
-
       </div>
     )
+  }
+}
+
+const style = {
+  viewVideoBtn : {
+    position: 'absolute',
+    top: '15px',
+    right: '15px'
+
   }
 }
