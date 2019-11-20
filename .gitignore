@@ -3,3 +3,4 @@
 pitchNotes.md
 /dist/static
 dist/.DS_Store
+config.js
