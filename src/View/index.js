@@ -54,25 +54,23 @@ export default class View extends React.Component {
       <React.Fragment>
         {this.state.data.info ?
           <Canvas>
-            <div style={{ backgroundColor: '#222f3e' }}>
-              {this.state.prompted ?
-                <QuestionWrapper
-                  state={this.state}
-                  closeComposer={() => this.closeComposer()}
-                  updateModalModule={(id) => this.updateModalModule(id)}
-                >
-                  <Questions q={this.state.currentQuestion} continue={() => this.continue()} />
-                </QuestionWrapper>
-                : ""}
-              <Player
-                info={this.state.data.info}
-                ref={this.player}
-                reportElapsedTime={(e) => this.reportElapsedSeconds(e)}
-                handleInsertClick={() => console.log('here')}
-              />
-            </div>
+            {this.state.prompted ?
+              <QuestionWrapper
+                state={this.state}
+                closeComposer={() => this.closeComposer()}
+                updateModalModule={(id) => this.updateModalModule(id)}
+              >
+                <Questions q={this.state.currentQuestion} continue={() => this.continue()} />
+              </QuestionWrapper>
+              : ""}
+            <Player
+              info={this.state.data.info}
+              ref={this.player}
+              reportElapsedTime={(e) => this.reportElapsedSeconds(e)}
+              handleInsertClick={() => console.log('here')}
+            />
           </Canvas>
-          : <h1 style={{textAlign: 'center'}}>No title found</h1>}
+          : <h1 style={{ textAlign: 'center' }}>No title found</h1>}
       </React.Fragment>
     )
   }

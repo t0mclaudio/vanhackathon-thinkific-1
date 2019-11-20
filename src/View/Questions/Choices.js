@@ -30,7 +30,7 @@ const style = {
   wrong: "form-control is-invalid",
   choice: {
     padding: '12px',
-    margin: '10px',
+    margin: '10px 0',
     backgroundColor: 'white',
     borderRadius: '4px',
     color: '#222f3e',
@@ -38,7 +38,7 @@ const style = {
   },
   selected: {
     padding: '12px',
-    margin: '10px',
+    margin: '10px 0',
     backgroundColor: '#10ac84',
     borderRadius: '4px',
     color: '#222f3e',

@@ -174,6 +174,7 @@ const style = {
   time: {
     textAlign: 'right',
     fontSize: '22px',
-    paddingRight: '15px'
+    paddingRight: '15px',
+    color: 'white'
   }
 }
