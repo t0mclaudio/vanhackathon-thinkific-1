@@ -133,7 +133,7 @@ export default class Player extends React.Component {
               <FontAwesomeIcon icon={faPauseCircle} onClick={() => this.togglePlayPause()} style={style.button} /> :
               <div>
                 <FontAwesomeIcon icon={faPlayCircle} onClick={() => this.togglePlayPause()} style={style.button} />
-                {this.state.allowInsert ?
+                {this.state.allowInsert && this.state.currentSecond > 0 ?
                   <FontAwesomeIcon
                     icon={faFile}
                     onClick={() => this.handleInsertClick()}

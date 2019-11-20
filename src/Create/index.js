@@ -45,14 +45,19 @@ export default class Create extends React.Component {
 
   handleSubmit(data) {
     let questions = this.state.questions;
-    questions.push(data)
-    let stamps = new Array() 
-    questions.map(q => {
-      console.log(q)
-      stamps.push(q.time)
+    // To Refactor: Checks if duplipate entry in time
+    if (questions.find(q => q.time === data.time)) {
+      let i = questions.findIndex(q => q.time === data.time);
+      questions[i] = data
+    } else {
+      questions.push(data)
+    }
+
+    // sorts the questions
+    questions.sort((a,b) => {
+      return a.time - b.time
     })
-    stamps.sort()
-    this.setState({ questions: questions, stamps:stamps })
+    this.setState({ questions: questions })
     this.closeComposer()
   }
 
@@ -61,7 +66,7 @@ export default class Create extends React.Component {
   }
 
   reportElapsedSeconds(elapsed) {
-    if (this.state.stamps.includes(elapsed)) {
+    if (this.state.questions.find(q => q.time === elapsed)) {
       this.player.current.pause()
       this.player.current.seekTo(elapsed)
     }
@@ -96,7 +101,7 @@ export default class Create extends React.Component {
               /> :
               <Form handleInfoSubmit={info => this.handleInfoSubmit(info)} />
             }
-          {this.state.isInfoSet && this.state.stamps.length > 0 ?
+          {this.state.isInfoSet && this.state.questions.length > 0 ?
             <Link to="/view" 
               style={style.viewVideoBtn} 
               className="btn btn-success" 
