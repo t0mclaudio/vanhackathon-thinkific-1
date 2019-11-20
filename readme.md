@@ -20,7 +20,7 @@
 - [x] Prompt should allow space for a question, and between 2 and 6 text responses
 - [ ] For each response, the behavior can be to resume playback, or link to another URL
 - [x] Prompt and responses overlaid on video.
-- [ ] The interactive video link can be embedded into another page using HTML and a simple URL
+- [x] The interactive video link can be embedded into another page using HTML and a simple URL
 
 ## Stretch Specs
 - [ ] Custom design (positioning, images for options)
