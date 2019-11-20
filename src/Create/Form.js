@@ -23,7 +23,7 @@ export default class Form extends React.Component {
 
   render() {
     return (
-      <form onSubmit={e => this.handleInfoSubmit(e)} style={{padding: '15px'}}>
+      <form onSubmit={e => this.handleInfoSubmit(e)} style={{padding: '35px'}}>
         <div className="form-group">
           <label htmlFor="title" style={style.label} >Please enter title</label>
           <input id="title" className="form-control" type="text" name="title" onChange={e => this.handleChange(e)} value={this.state.title} />
