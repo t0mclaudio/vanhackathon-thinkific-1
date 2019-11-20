@@ -24,7 +24,7 @@
 
 ## Stretch Specs
 - [ ] Custom design (positioning, images for options)
-- [ ] Collect an email to keep playing the video
+- [x] Collect an email to keep playing the video
 - [ ] Tweet/share on facebook/linked in to continue playing video
 - [ ] Allow responses to trigger files downloads (.pdf, .txt, .xls)
 - [ ] Creator can see results of which responses people choose
