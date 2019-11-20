@@ -9,22 +9,22 @@ export default class View extends React.Component {
     super(props);
     this.state = {
       prompted: false,
-      currentQuestion: null,
+      question: null,
       data: this.props.data
     }
     this.player = React.createRef();
   }
 
-  openComposer() {
+  openPrompt() {
     this.player.current.pause();
     this.setState({
-      isComposing: true,
+      prompted: true,
       time: this.player.current.reportTime()
     })
   }
 
-  closeComposer() {
-    this.setState({ isComposing: false, activeInModal: 'A' })
+  closePrompt() {
+    this.setState({ prompted: false, activeInModal: 'A' })
   }
 
   updateModalModule(id) {
@@ -33,15 +33,15 @@ export default class View extends React.Component {
 
   reportElapsedSeconds(elapsed) {
     if (this.state.data.questions.find(q => q.time === elapsed)) {
-      let currentQuestion = this.state.data.questions.find(q => q.time === elapsed)
+      let question = this.state.data.questions.find(q => q.time === elapsed)
       this.player.current.pause()
-      this.player.current.seekTo(elapsed) // go to next second
-      this.setState({ prompted: true, currentQuestion: currentQuestion })
+      this.player.current.seekTo(elapsed)
+      this.setState({ prompted: true, question: question })
     }
   }
 
   handleInsertClick(time) {
-    this.openComposer()
+    this.openPrompt()
   }
 
   continue() {
@@ -55,14 +55,10 @@ export default class View extends React.Component {
         {this.state.data.info ?
           <Canvas>
             {this.state.prompted ?
-              <QuestionWrapper
-                state={this.state}
-                closeComposer={() => this.closeComposer()}
-                updateModalModule={(id) => this.updateModalModule(id)}
-              >
-                <Questions q={this.state.currentQuestion} continue={() => this.continue()} />
+              <QuestionWrapper state={this.state} closePrompt={() => this.closePrompt()}>
+                <Questions q={this.state.question} continue={() => this.continue()} />
               </QuestionWrapper>
-              : ""}
+            : "" }
             <Player
               info={this.state.data.info}
               ref={this.player}
@@ -70,7 +66,7 @@ export default class View extends React.Component {
               handleInsertClick={() => console.log('here')}
             />
           </Canvas>
-          : <h1 style={{ textAlign: 'center' }}>No title found</h1>}
+        : <h1 style={{ textAlign: 'center' }}>No title found</h1>}
       </React.Fragment>
     )
   }
