@@ -30,7 +30,7 @@ export default class Questions extends React.Component {
     e.preventDefault()
     let correctAnswer = this.state.question.answer.toLowerCase().trim()
     let answer = this.state.answer.trim()
-    if (answer === correctAnswer) {
+    if (answer === correctAnswer || this.state.question.passThrough) {
       this.props.continue()
     } else {
       this.setState({

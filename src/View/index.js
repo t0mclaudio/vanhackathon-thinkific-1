@@ -10,6 +10,12 @@ export default class View extends React.Component {
     this.state = {
       prompted: false,
       question: null,
+      getEmail: {
+        question: "To continue, type in your email address?",
+        passThrough: true,
+        type: 'get email',
+        answer: ""
+      },
       data: this.props.data
     }
     this.player = React.createRef();
@@ -33,10 +39,15 @@ export default class View extends React.Component {
   }
 
   reportElapsedSeconds(elapsed) {
+    if (elapsed === 1) { 
+      this.player.current.pause();
+      this.player.current.seekTo(elapsed);
+      this.setState({ prompted: true, question: this.state.getEmail })
+    }
     if (this.state.data.questions.find(q => q.time === elapsed)) {
-      let question = this.state.data.questions.find(q => q.time === elapsed)
       this.player.current.pause()
       this.player.current.seekTo(elapsed)
+      let question = this.state.data.questions.find(q => q.time === elapsed)
       this.setState({ prompted: true, question: question })
     }
   }
