@@ -1,5 +1,5 @@
 /node_modules
-/dist/assets/bundle.js
+/dist/assets/
 pitchNotes.md
 /dist/static
 dist/.DS_Store
