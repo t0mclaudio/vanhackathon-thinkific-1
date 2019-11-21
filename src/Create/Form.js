@@ -33,7 +33,7 @@ export default class Form extends React.Component {
           <textarea id="description" className="form-control" type="url" name="description" onChange={e => this.handleChange(e)} value={this.state.description} />
         </div>
         <div className="form-group">
-          <label htmlFor="urlfield" style={style.label}>Please enter URL</label>
+          <label htmlFor="urlfield" style={style.label}>Please enter Video URL</label>
           <input id="urlfield" className="form-control" type="url" name="url" onChange={e => this.handleChange(e)} value={this.state.url} />
         </div>
 
