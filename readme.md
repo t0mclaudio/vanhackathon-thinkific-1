@@ -30,3 +30,8 @@
 - [ ] Creator can see results of which responses people choose
 - [ ] Show the results of polls to viewers after they select a response
 - [ ] Anything else that makes it fun and engaging
+
+## Next Steps
+* Use state management like Redux or Context
+* Validations
+* Test Cases
