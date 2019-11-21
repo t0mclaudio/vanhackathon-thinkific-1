@@ -39,7 +39,7 @@ export default class App extends React.Component {
       <div id="mountPoint"></div>
   
       <!-- Get script -->
-      <script src="assets/embed.js"></script>
+      <script src="https://create-your-own-adventure-video-maker-v1.s3-ap-southeast-1.amazonaws.com/embed.js"></script>
   
       <!-- Initialize -->
       <script>
