@@ -1,17 +1,26 @@
-# Thinkific - Course Creator
+# Vanhackathon 2019 | CHOOSE YOUR OWN ADVENTURE VIDEO MAKER
+
+Demo:
+[https://create-your-own-adventure-01.netlify.com/](https://create-your-own-adventure-01.netlify.com/) 
+
+## How to use
+* Enter basic info and a valid video URL
+* Scrub through timeline and click paper icon to insert a question
+* Enter question
+* Click on green view button on upper right to view interactive video - it appears only if there's atleast one question
+
+
+## Technologies
+* React 16
+* Firebase
 
 ## Use Cases
-
 * Creator enters YT link, Title, and Description
 * Creator scrubs through timeline and chooses a part where to insert prompt
-* Creator upon click on the timeline opens a 
-
-## Challenges
-1. Use YT in a HTML5 video tag
-2. Interact with YT IFRAME API
-3. Create YT Player component
-4. Handle 2 formats YT and Wistia
-5. Learn controls to play, pause, stop, replay, go to
+* Creator upon click on the timeline opens a question composer
+* Creator enters her/his questions
+* Creatpr views interactive video
+* Creator gets code for embed
 
 ## Basic Specs
 - [x] Should work with videos hosted on site like Wistia or Youtube
@@ -34,4 +43,28 @@
 ## Next Steps
 * Use state management like Redux or Context
 * Validations
-* Test Cases
+* MORE Test Cases!!!!
+* Improve usability
+* Improve navigation
+
+## Challenges
+1. Use YT in a HTML5 video tag
+2. Interact with YT IFRAME API
+3. Create YT Player component
+4. Handle 2 formats YT and Wistia
+5. Learn controls to play, pause, stop, replay, go to
+
+## How to use
+* Fork the repo
+* Install packages
+```
+npm install
+```
+* Start project
+```
+npm start
+```
+* Build project
+```
+npm run build
+```
