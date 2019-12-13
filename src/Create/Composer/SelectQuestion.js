@@ -1,20 +1,18 @@
 import React from 'react';
-import { whileStatement } from '@babel/types';
 
-export default props => {
-  return (
-    <div style={style.wrapper}>
-      <p>What type of question do you want to create?</p>
-      <div style={style.choices}>
-        <div style={style.choice} onClick={() => props.updateModalModule("B")}>Fill in the blank</div>
-        <div style={style.choice} onClick={() => props.updateModalModule("C")}>Multiple choice</div>
-      </div>
+export default props => (
+  <div style={style.wrapper}>
+    <p>What type of question do you want to create?</p>
+    <div style={style.choices}>
+      <div style={style.choice} onClick={() => props.updateModalModule("B")}>Fill in the blank</div>
+      <div style={style.choice} onClick={() => props.updateModalModule("C")}>Multiple choice</div>
     </div>
-  )
-}
+  </div>
+)
 
-const style= {
-  wrapper : {
+
+const style = {
+  wrapper: {
     padding: '15px',
     color: 'white'
   },
