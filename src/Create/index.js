@@ -54,7 +54,7 @@ export default class Create extends React.Component {
     }
 
     // sorts the questions
-    questions.sort((a,b) => {
+    questions.sort((a, b) => {
       return a.time - b.time
     })
     this.setState({ questions: questions })
@@ -80,42 +80,42 @@ export default class Create extends React.Component {
     return (
       <React.Fragment>
         <Canvas>
-            {this.state.isComposing ?
-              <ComposerWrapper
+          {this.state.isComposing &&
+            <ComposerWrapper
+              state={this.state}
+              closeComposer={() => this.closeComposer()}
+              updateModalModule={(id) => this.updateModalModule(id)}>
+              <Composer
                 state={this.state}
-                closeComposer={() => this.closeComposer()}
-                updateModalModule={(id) => this.updateModalModule(id)}>
-                <Composer
-                  state={this.state}
-                  updateModalModule={(id) => this.updateModalModule(id)}
-                  handleSubmit={data => this.handleSubmit(data)} />
-              </ComposerWrapper>
-              : ""}
-            {this.state.isInfoSet ?
-              <Player
-                info={this.state.info}
-                ref={this.player}
-                allowInsert={true}
-                reportElapsedTime={(e) => this.reportElapsedSeconds(e)}
-                handleInsertClick={time => this.handleInsertClick(time)}
-              /> :
-              <Form handleInfoSubmit={info => this.handleInfoSubmit(info)} />
-            }
-          {this.state.isInfoSet && this.state.questions.length > 0 ?
-            <Link to="/view" 
-              style={style.viewVideoBtn} 
-              className="btn btn-success" 
-              onClick={() => this.handleViewVideo()}><ViewBtn/></Link>  
-          : "" }
+                updateModalModule={(id) => this.updateModalModule(id)}
+                handleSubmit={data => this.handleSubmit(data)} />
+            </ComposerWrapper>
+          }
+          {this.state.isInfoSet ?
+            <Player
+              info={this.state.info}
+              ref={this.player}
+              allowInsert={true}
+              reportElapsedTime={(e) => this.reportElapsedSeconds(e)}
+              handleInsertClick={time => this.handleInsertClick(time)}
+            /> :
+            <Form handleInfoSubmit={info => this.handleInfoSubmit(info)} />
+          }
+          {this.state.isInfoSet && this.state.questions.length > 0 &&
+            <Link to="/view"
+              style={style.viewVideoBtn}
+              className="btn btn-success"
+              onClick={() => this.handleViewVideo()}><ViewBtn /></Link>
+          }
         </Canvas>
-        {this.state.isInfoSet ? <Questions state={this.state.questions} /> : ""}
+        {this.state.isInfoSet && <Questions state={this.state.questions} />}
       </React.Fragment>
     )
   }
 }
 
 const style = {
-  viewVideoBtn : {
+  viewVideoBtn: {
     position: 'absolute',
     top: '15px',
     right: '15px'
