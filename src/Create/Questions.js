@@ -3,22 +3,25 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faClock } from '@fortawesome/free-solid-svg-icons'
 
-export default props => {
-  return (
-    <div style={{marginTop: '15px'}}>
-      {props.state.length > 0 ?
-        props.state.map((question, index) => {
-          return (
-            <div key={index} style={style.question}>
-              <small>{`${question.type.toUpperCase()}`}</small>
-              <p>{`${question.question}`}</p>
-              <small><FontAwesomeIcon style={style.clock} icon={faClock} /> {`${question.elapsed}`}</small>
-            </div>
-          )
-        }) : <p>No questions listed </p>}
-    </div>
-  )
-}
+export default props => (
+  <div style={{ marginTop: '15px' }}>
+    {props.state.length > 0 ?
+      props.state.map((question, index) => (
+        <Question key={index} q={question} />
+      ))
+      : <NoQuestion /> }
+  </div>
+)
+
+const Question = (props) => (
+  <div style={style.question}>
+    <small>{`${props.q.type.toUpperCase()}`}</small>
+    <p>{`${props.q.question}`}</p>
+    <small><FontAwesomeIcon style={style.clock} icon={faClock} /> {`${props.q.elapsed}`}</small>
+  </div>
+)
+
+const NoQuestion = () => <p>No questions listed </p>;
 
 const style = {
   questions: {
