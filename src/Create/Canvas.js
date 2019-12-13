@@ -1,12 +1,10 @@
 import React from 'react';
 
-export default (props) => {
-  return (
-    <div style={style.wrapper}>
-      {props.children}
-    </div>
-  )
-}
+export default (props) => (
+  <div style={style.wrapper}>
+    {props.children}
+  </div>
+)
 
 const style = {
   wrapper: {
