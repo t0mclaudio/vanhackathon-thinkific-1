@@ -5,8 +5,8 @@ import { faClock } from '@fortawesome/free-solid-svg-icons'
 
 export default props => (
   <div style={{ marginTop: '15px' }}>
-    {props.state.length > 0 ?
-      props.state.map((question, index) => (
+    {props.qs.length > 0 ?
+      props.qs.map((question, index) => (
         <Question key={index} q={question} />
       ))
       : <NoQuestion /> }

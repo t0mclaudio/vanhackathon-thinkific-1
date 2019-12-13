@@ -108,7 +108,7 @@ export default class Create extends React.Component {
               onClick={() => this.handleViewVideo()}><ViewBtn /></Link>
           }
         </Canvas>
-        {this.state.isInfoSet && <Questions state={this.state.questions} />}
+        {this.state.isInfoSet && <Questions qs={this.state.questions} />}
       </React.Fragment>
     )
   }
