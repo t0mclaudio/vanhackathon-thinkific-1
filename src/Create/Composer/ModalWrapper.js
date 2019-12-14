@@ -1,5 +1,3 @@
-import React from 'react';
-
-export default (props) => ( 
+export default (props) => (
   props.state.openModal && props.children
-)
+);
