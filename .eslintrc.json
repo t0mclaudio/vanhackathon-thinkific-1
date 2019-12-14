@@ -13,7 +13,7 @@
     },
     "parserOptions": {
         "ecmaFeatures": {
-            "jsx": true
+            "jsx": false
         },
         "ecmaVersion": 2018,
         "sourceType": "module"
@@ -22,5 +22,12 @@
         "react"
     ],
     "rules": {
-    }
+        "react/jsx-filename-extension": [0],
+        "jsx-a11y/label-has-associated-control": [ 2, {
+            "required": {
+                "every": [ "id" ]
+            }
+        }]
+    },
+    "parser": "babel-eslint"
 }
