@@ -18,29 +18,28 @@ export default class Create extends React.Component {
       time: {},
       activeInModal: 'A',
       questions: [],
-      stamps: []
-    }
+    };
     this.player = React.createRef();
   }
 
   handleInfoSubmit(info) {
-    this.setState({ info: info, isInfoSet: true })
+    this.setState({ info, isInfoSet: true });
   }
 
   openComposer() {
     this.player.current.pause();
     this.setState({
       isComposing: true,
-      time: this.player.current.reportTime()
-    })
+      time: this.player.current.reportTime(),
+    });
   }
 
   closeComposer() {
-    this.setState({ isComposing: false, activeInModal: 'A' })
+    this.setState({ isComposing: false, activeInModal: 'A' });
   }
 
   updateModalModule(id) {
-    this.setState({ activeInModal: id })
+    this.setState({ activeInModal: id });
   }
 
   handleSubmit(data) {
