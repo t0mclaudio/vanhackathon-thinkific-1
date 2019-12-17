@@ -6,6 +6,8 @@ import ReactPlayer from 'react-player';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlayCircle, faPauseCircle, faFile } from '@fortawesome/free-solid-svg-icons';
 
+import Seeker from './Seeker';
+
 import { convertSecondsToInt, convertSecondsToTime } from './helper';
 import style from './style';
 
@@ -97,18 +99,12 @@ export default class Player extends React.Component {
             onProgress={(state) => this.onProgress(state)}
           />
         </div>
-        <div>
-          <input
-            style={{ width: '100%' }}
-            type="range"
-            min={0}
-            max={1}
-            step="any"
-            value={played}
-            onChange={this.handleSeekChange}
-            onMouseUp={this.handleSeekMouseUp}
-          />
-        </div>
+        <Seeker
+          played={played}
+          handleSeekChange={this.handleSeekChange}
+          handleSeekMouseUp={this.handleSeekMouseUp}
+        />
+        
         <div style={style.footerWrapper}>
           <div style={style.buttons}>
             {playing
