@@ -71,6 +71,14 @@ export default class Player extends React.Component {
     this.player.seekTo(sec);
   }
 
+  reportTime() {
+    const { currentSecond, elapsed } = this.state;
+    return {
+      currentSecond,
+      elapsed,
+    };
+  }
+
   render() {
     const {
       url,
