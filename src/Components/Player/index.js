@@ -1,167 +1,139 @@
+/* eslint-disable max-len */
 import React from 'react';
-import ReactPlayer from 'react-player';
+import PropTypes from 'prop-types';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlayCircle, faPauseCircle, faFile } from '@fortawesome/free-solid-svg-icons'
+import ReactPlayer from 'react-player';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlayCircle, faPauseCircle, faFile } from '@fortawesome/free-solid-svg-icons';
+
+import { convertSecondsToInt, convertSecondsToTime } from './helper';
+import style from './style';
 
 export default class Player extends React.Component {
   constructor(props) {
     super(props);
+    const { url } = props.info;
+    const { allowInsert } = props;
     this.state = {
-      url: this.props.info.url,
+      url,
       playing: false,
       currentSecond: 0,
       elapsed: '00:00:00',
-      seeking: false,
       played: 0,
-      allowInsert: this.props.allowInsert || false
-    }
-  }
-
-  play() {
-    this.setState({ playing: true })
-  }
-
-  pause() {
-    this.setState({ playing: false })
+      allowInsert: allowInsert || false,
+    };
   }
 
   onProgress(state) {
-    console.log(state)
-    let elapsedSeconds = this.convertSecondsToInt(state.playedSeconds)
+    const { reportElapsedTime } = this.props;
+    const elapsedSeconds = convertSecondsToInt(state.playedSeconds);
     this.timeElapsed(elapsedSeconds);
-    this.props.reportElapsedTime(elapsedSeconds)
-    this.setState({ played: state.played })
+    reportElapsedTime(elapsedSeconds);
+    this.setState({ played: state.played });
   }
 
-  convertSecondsToInt(time) {
-    return parseInt(Math.ceil(time))
+  ref = (player) => {
+    this.player = player;
+  }
+
+  handleSeekChange = (e) => {
+    this.setState({ played: parseFloat(e.target.value) });
+  }
+
+  handleSeekMouseUp = (e) => {
+    this.player.seekTo(parseFloat(e.target.value));
+  }
+
+  play() {
+    this.setState({ playing: true });
+  }
+
+  pause() {
+    this.setState({ playing: false });
   }
 
   timeElapsed(currentSecond) {
     this.setState({
-      currentSecond: currentSecond,
-      elapsed: this.convertSecondsToTime(currentSecond),
-    })
-  }
-
-  convertSecondsToTime(timeInSeconds) {
-    var pad = function (num, size) { return ('000' + num).slice(size * -1); },
-      time = parseFloat(timeInSeconds).toFixed(3),
-      hours = Math.floor(time / 60 / 60),
-      minutes = Math.floor(time / 60) % 60,
-      seconds = Math.floor(time - minutes * 60);
-    return `${pad(hours, 2)}:${pad(minutes, 2)}:${pad(seconds, 2)}`
-  }
-
-  reportTime() {
-    return {
-      currentSecond: this.state.currentSecond,
-      elapsed: this.state.elapsed
-    }
-  }
-
-  handleSeekMouseDown = e => {
-    this.setState({ seeking: true })
-  }
-
-  handleSeekChange = e => {
-    this.setState({ played: parseFloat(e.target.value) })
-  }
-
-  handleSeekMouseUp = e => {
-    this.setState({ seeking: false })
-    this.player.seekTo(parseFloat(e.target.value))
+      currentSecond,
+      elapsed: convertSecondsToTime(currentSecond),
+    });
   }
 
   handleInsertClick() {
-    this.props.handleInsertClick({
-      currentSecond: this.state.currentSecond,
-      elapsed: this.state.elapsed
-    })
+    const { currentSecond, elapsed } = this.state;
+    const { handleInsertClick } = this.props;
+    handleInsertClick({ currentSecond, elapsed });
   }
 
   seekTo(sec) {
-    this.player.seekTo(sec)
-  }
-
-  ref = player => {
-    this.player = player
+    this.player.seekTo(sec);
   }
 
   render() {
+    const {
+      url,
+      playing,
+      played,
+      currentSecond,
+      allowInsert,
+      elapsed,
+    } = this.state;
     return (
-      <React.Fragment>
+      <>
         <div style={{ pointerEvents: 'none' }}>
           <ReactPlayer
             ref={this.ref}
-            url={this.state.url}
+            url={url}
             config={{
               wistia: {
                 options: {
                   controlsVisibleOnLoad: false,
-                  playButton: false
-                }
-              }
+                  playButton: false,
+                },
+              },
             }}
             onReady={() => this.reportReady()}
-            playing={this.state.playing}
-            onProgress={state => this.onProgress(state)} />
+            playing={playing}
+            onProgress={(state) => this.onProgress(state)}
+          />
         </div>
         <div>
           <input
             style={{ width: '100%' }}
-            type='range' min={0} max={1} step='any'
-            value={this.state.played}
-            onMouseDown={this.handleSeekMouseDown}
+            type="range"
+            min={0}
+            max={1}
+            step="any"
+            value={played}
             onChange={this.handleSeekChange}
             onMouseUp={this.handleSeekMouseUp}
           />
         </div>
         <div style={style.footerWrapper}>
           <div style={style.buttons}>
-            {this.state.playing ?
-              <FontAwesomeIcon icon={faPauseCircle} onClick={() => this.pause()} style={style.button} /> :
-              <div>
-                <FontAwesomeIcon icon={faPlayCircle} onClick={() => this.play()} style={style.button} />
-                {this.state.allowInsert && this.state.currentSecond > 1 ?
-                  <FontAwesomeIcon icon={faFile} onClick={() => this.handleInsertClick()} style={style.insertButton} /> :
-                  ""
-                }
-              </div>
-            }
+            {playing
+              ? <FontAwesomeIcon icon={faPauseCircle} onClick={() => this.pause()} style={style.button} />
+              : (
+                <div>
+                  <FontAwesomeIcon icon={faPlayCircle} onClick={() => this.play()} style={style.button} />
+                  {allowInsert
+                    && currentSecond > 1
+                    && <FontAwesomeIcon icon={faFile} onClick={() => this.handleInsertClick()} style={style.insertButton} />}
+                </div>
+              )}
           </div>
-          <span style={style.time}>{this.state.elapsed}</span>
+          <span style={style.time}>{elapsed}</span>
         </div>
-      </React.Fragment>
-    )
+      </>
+    );
   }
 }
 
-const style = {
-  footerWrapper: {
-    display: 'grid',
-    gridTemplateColumns: 'auto auto',
-    alignItems: 'center'
-  },
-  buttons: {
-    padding: '10px'
-  },
-
-  insertButton: {
-    marginLeft: '10px',
-    color: '#ecf0f1',
-    fontSize: '32px',
-
-  },
-  button: {
-    color: '#ecf0f1',
-    fontSize: '32px'
-  },
-  time: {
-    textAlign: 'right',
-    fontSize: '22px',
-    paddingRight: '15px',
-    color: 'white'
-  }
-}
+Player.propTypes = {
+  info: PropTypes.shape({
+    url: PropTypes.string.isRequired,
+  }).isRequired,
+  allowInsert: PropTypes.bool.isRequired,
+  handleInsertClick: PropTypes.func.isRequired,
+  reportElapsedTime: PropTypes.func.isRequired,
+};
