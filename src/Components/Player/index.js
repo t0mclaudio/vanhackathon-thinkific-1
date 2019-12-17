@@ -104,19 +104,15 @@ export default class Player extends React.Component {
           handleSeekChange={this.handleSeekChange}
           handleSeekMouseUp={this.handleSeekMouseUp}
         />
-        
         <div style={style.footerWrapper}>
           <div style={style.buttons}>
-            {playing
+            { playing
               ? <FontAwesomeIcon icon={faPauseCircle} onClick={() => this.pause()} style={style.button} />
-              : (
-                <div>
-                  <FontAwesomeIcon icon={faPlayCircle} onClick={() => this.play()} style={style.button} />
-                  {allowInsert
-                    && currentSecond > 1
-                    && <FontAwesomeIcon icon={faFile} onClick={() => this.handleInsertClick()} style={style.insertButton} />}
-                </div>
-              )}
+              : <FontAwesomeIcon icon={faPlayCircle} onClick={() => this.play()} style={style.button} />}
+            { allowInsert
+              && !playing
+              && currentSecond > 1
+              && <FontAwesomeIcon icon={faFile} onClick={() => this.handleInsertClick()} style={style.insertButton} />}
           </div>
           <span style={style.time}>{elapsed}</span>
         </div>
