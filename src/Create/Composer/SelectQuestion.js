@@ -1,25 +1,15 @@
 import React from 'react';
-
-export default props => (
-  <div style={style.wrapper}>
-    <p>What type of question do you want to create?</p>
-    <div style={style.choices}>
-      <div style={style.choice} onClick={() => props.updateModalModule("B")}>Fill in the blank</div>
-      <div style={style.choice} onClick={() => props.updateModalModule("C")}>Multiple choice</div>
-    </div>
-  </div>
-)
-
+import { Consumer } from '../../Context';
 
 const style = {
   wrapper: {
     padding: '15px',
-    color: 'white'
+    color: 'white',
   },
   choices: {
     display: 'grid',
     gridTemplateColumns: 'auto',
-    gridGap: '15px'
+    gridGap: '15px',
   },
 
   choice: {
@@ -29,6 +19,20 @@ const style = {
     height: '48px',
     padding: '10px',
     fontSize: '16px',
-    cursor: 'pointer'
-  }
-}
+    cursor: 'pointer',
+  },
+};
+
+export default () => (
+  <Consumer>
+    {({ actions }) => (
+      <div style={style.wrapper}>
+        <p>What type of question do you want to create?</p>
+        <div style={style.choices}>
+          <button type="button" style={style.choice} onClick={() => actions.updateModalModule('B')}>Fill in the blank</button>
+          <button type="button" style={style.choice} onClick={() => actions.updateModalModule('C')}>Multiple choice</button>
+        </div>
+      </div>
+    )}
+  </Consumer>
+);
