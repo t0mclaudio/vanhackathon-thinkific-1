@@ -7,11 +7,6 @@ export default {
   buttons: {
     padding: '10px',
   },
-  insertButton: {
-    marginLeft: '10px',
-    color: '#ecf0f1',
-    fontSize: '32px',
-  },
   button: {
     color: '#ecf0f1',
     fontSize: '32px',
