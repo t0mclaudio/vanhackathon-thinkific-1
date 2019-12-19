@@ -6,10 +6,12 @@ import {
   Link
 } from 'react-router-dom';
 
+import firebase from 'firebase/app';
+import 'firebase/firestore';
+
 import Create from './Create';
 import View from './View';
 
-import firebase from 'firebase';
 import config from '../config';
 
 import { Provider } from './Context';
