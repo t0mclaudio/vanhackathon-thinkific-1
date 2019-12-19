@@ -22,7 +22,7 @@ const Seeker = (props) => (
 );
 
 Seeker.propTypes = {
-  playerRef: PropTypes.func.isRequired,
+  playerRef: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
 };
 
 export default Seeker;
