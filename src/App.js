@@ -12,6 +12,8 @@ import View from './View';
 import firebase from 'firebase';
 import config from '../config';
 
+import { Provider } from './Context';
+
 firebase.initializeApp(config.firebaseConfig);
 
 const db = firebase.firestore();
@@ -26,15 +28,15 @@ export default class App extends React.Component {
   }
 
   handleViewVideo(data) {
-    this.setState({data: data})
+    this.setState({ data: data })
     db.collection(config.collection).add(data)
-    .then(docRef => { 
-       console.log("Document written with ID: ", docRef.id);
-       return docRef.id 
-    })
-    .then(id => {
-      let embedCode = 
-      `
+      .then(docRef => {
+        console.log("Document written with ID: ", docRef.id);
+        return docRef.id
+      })
+      .then(id => {
+        let embedCode =
+          `
       <!-- Create mount point -->
       <div id="mountPoint"></div>
   
@@ -46,28 +48,30 @@ export default class App extends React.Component {
         IVideo.embed("${id}", document.getElementById('mountPoint'))
       </script>
       `
-      this.setState({embedCode: embedCode})
-    })
-    .catch(error => console.error("Error adding document: ", error))
-    
+        this.setState({ embedCode: embedCode })
+      })
+      .catch(error => console.error("Error adding document: ", error))
+
   }
 
   saveToDb() {
-    
+
   }
 
   render() {
     return (
-      <Router>
-        <Switch>
-          <Route exact path="/">
-            <Create handleViewVideo={data => this.handleViewVideo(data)} />
-          </Route>
-          <Route exact path="/view">
-            <View data={this.state.data} embedCode={this.state.embedCode} />
-          </Route>
-        </Switch>
-      </Router>
+      <Provider>
+        <Router>
+          <Switch>
+            <Route exact path="/">
+              <Create handleViewVideo={data => this.handleViewVideo(data)} />
+            </Route>
+            <Route exact path="/view">
+              <View data={this.state.data} embedCode={this.state.embedCode} />
+            </Route>
+          </Switch>
+        </Router>
+      </Provider>
     )
   }
 }
