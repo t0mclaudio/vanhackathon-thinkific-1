@@ -7,35 +7,35 @@ export default class Questions extends React.Component {
     super(props);
     this.state = {
       question: this.props.q,
-      answer: "",
+      answer: '',
       wrongAnswer: false
-    }
+    };
   }
 
   handleChange(e) {
     this.setState({
       [e.target.name]: e.target.value.toLocaleLowerCase(),
-      wrongAnswer: false
-    })
+      wrongAnswer: false,
+    });
   }
 
   selectAnswer(answer) {
     this.setState({
-      answer: answer,
+      answer,
       wrongAnswer: false
-    })
+    });
   }
 
   submitAnswer(e) {
-    e.preventDefault()
-    let correctAnswer = this.state.question.answer.toLowerCase().trim()
-    let answer = this.state.answer.trim()
+    e.preventDefault();
+    const correctAnswer = this.state.question.answer.toLowerCase().trim();
+    const answer = this.state.answer.trim();
     if (answer === correctAnswer || this.state.question.passThrough) {
-      this.props.continue()
+      this.props.continue();
     } else {
       this.setState({
         wrongAnswer: true,
-      })
+      });
     }
   }
 
@@ -43,13 +43,10 @@ export default class Questions extends React.Component {
     return (
       <div>
         <p>{this.state.question.question}</p>
-        {this.state.question.type == "multiple choice" ? 
-          <Choices state={this.state} selectAnswer={ans => this.selectAnswer(ans)} submitAnswer={(e) => this.submitAnswer(e)} />
-        :
-          <Identification state={this.state} handleChange={e => this.handleChange(e)} submitAnswer={e => this.submitAnswer(e)} /> 
-        }
+        { this.state.question.type === 'multiple choice'
+          ? <Choices state={this.state} selectAnswer={(ans) => this.selectAnswer(ans)} submitAnswer={(e) => this.submitAnswer(e)} />
+          : <Identification state={this.state} handleChange={(e) => this.handleChange(e)} submitAnswer={(e) => this.submitAnswer(e)} /> }
       </div>
-    )
+    );
   }
 }
-
