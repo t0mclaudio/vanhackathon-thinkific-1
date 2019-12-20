@@ -1,11 +1,5 @@
 import React from 'react';
 
-export default (props) => (
-  <div style={style.wrapper}>
-    {props.children}
-  </div>
-)
-
 const style = {
   wrapper: {
     position: 'relative',
@@ -13,7 +7,12 @@ const style = {
     borderRadius: '4px',
     padding: 0,
     backgroundColor: '#222f3e',
-    fontSize: '16px'
-  }
-}
+    fontSize: '16px',
+  },
+};
 
+export default (props) => (
+  <div style={style.wrapper}>
+    {props.children}
+  </div>
+);
