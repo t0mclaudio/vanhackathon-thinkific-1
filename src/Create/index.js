@@ -1,47 +1,33 @@
-/* eslint-disable react/prop-types */
-import React from 'react';
-import { Link, withRouter } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFile } from '@fortawesome/free-solid-svg-icons';
+import React, { useContext } from 'react';
+import { withRouter } from 'react-router-dom';
 import Composer from './Composer';
 
 import Canvas from './Canvas';
 import Player from '../Components/Player';
 import Questions from './Questions';
 import ViewBtn from './ViewBtn';
+import InsertBtn from './InsertBtn';
 
-import { Consumer } from '../Context';
-
-const style = {
-  insertButton: {
-    marginLeft: '10px',
-    color: '#ecf0f1',
-    fontSize: '32px',
-  },
-};
+import { PlayerContext } from '../Context';
 
 const Create = (props) => {
-  return (
-    <Consumer>
-      {({ isInfoSet, actions }) => {
-        if (isInfoSet) {
-          return (
-            <>
-              <Canvas>
-                <Composer />
-                <Player>
-                  <FontAwesomeIcon icon={faFile} onClick={actions.handleInsertClick} style={style.insertButton} />
-                </Player>
-                <ViewBtn />
-              </Canvas>
-              <Questions />
-            </>
-          );
-        }
-        return props.history.push('/');
-      }}
-    </Consumer>
-  );
+  const ctx = useContext(PlayerContext);
+  const { isInfoSet } = ctx;
+  if (isInfoSet) {
+    return (
+      <>
+        <Canvas>
+          <Composer />
+          <Player>
+            <InsertBtn />
+          </Player>
+          <ViewBtn />
+        </Canvas>
+        <Questions />
+      </>
+    );
+  }
+  return props.history.push('/');
 };
 
 export default withRouter(Create);
