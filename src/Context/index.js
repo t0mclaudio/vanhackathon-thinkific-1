@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 
 import { convertSecondsToInt, convertSecondsToTime } from '../Components/Player/helper';
 
-const PlayerContext = React.createContext();
+export const PlayerContext = React.createContext();
 
 export class Provider extends Component {
   constructor(props) {

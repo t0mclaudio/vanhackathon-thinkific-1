@@ -11,6 +11,7 @@ import 'firebase/firestore';
 
 import Create from './Create';
 import View from './View';
+import Form from './Create/Form';
 
 import config from '../config';
 
@@ -66,6 +67,9 @@ export default class App extends React.Component {
         <Router>
           <Switch>
             <Route exact path="/">
+              <Form />
+            </Route>
+            <Route exact path="/create">
               <Create handleViewVideo={data => this.handleViewVideo(data)} />
             </Route>
             <Route exact path="/view">
