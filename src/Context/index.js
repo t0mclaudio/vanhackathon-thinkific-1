@@ -22,8 +22,11 @@ export class Provider extends Component {
       activeInModal: 'A',
       questions: [],
       currentModule: 'A',
+      createMode: true,
     };
   }
+
+  setCreateMode = (status) => this.setState({ createMode: status });
 
   handleChange = (e) => {
     const { name, value } = e.target;
