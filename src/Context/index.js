@@ -47,21 +47,27 @@ export class Provider extends Component {
   }
 
   onProgress = (state, ref) => {
-    const { questions } = this.state;
-    const elapsedSeconds = convertSecondsToInt(state.playedSeconds);
-    this.timeElapsed(elapsedSeconds);
-    if (questions.find((q) => q.time === elapsedSeconds)) {
-      this.pause();
-      ref.current.seekTo(elapsedSeconds);
-    }
-    this.setState({ played: state.played });
+    const { createMode } = this.state;
+    const { played, playedSeconds } = state;
+    const currentSecond = convertSecondsToInt(playedSeconds);
+    this.timeElapsed(currentSecond, played);
+    if (!createMode) this.checkIfQuestion(currentSecond, ref);
   }
 
-  timeElapsed = (currentSecond) => {
+  timeElapsed = (currentSecond, played) => {
     this.setState({
       currentSecond,
       elapsed: convertSecondsToTime(currentSecond),
+      played,
     });
+  }
+
+  checkIfQuestion = (currentSecond, ref) => {
+    const { questions } = this.state;
+    if (questions.find((q) => q.time === currentSecond)) {
+      this.pause();
+      ref.current.seekTo(currentSecond);
+    }
   }
 
   handleSeekChange = (e) => {
@@ -142,6 +148,7 @@ export class Provider extends Component {
       handleSubmit: this.handleSubmit.bind(this),
       updateModalModule: this.updateModalModule.bind(this),
       closeComposer: this.closeComposer.bind(this),
+      setCreateMode: this.setCreateMode.bind(this),
     };
     return (
       <PlayerContext.Provider value={{ ...this.state, actions }}>
