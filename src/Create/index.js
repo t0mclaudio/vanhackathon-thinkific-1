@@ -13,8 +13,8 @@ import { Consumer } from '../Context';
 
 const Create = (props) => (
   <Consumer>
-    {({ isInfoSet, actions }) => {
-      actions.setCreateMode(true);
+    {({ isInfoSet, createMode, actions }) => {
+      if (!createMode) actions.setCreateMode(true); // hack
       if (isInfoSet) {
         return (
           <>
@@ -32,7 +32,6 @@ const Create = (props) => (
       return props.history.push('/');
     }}
   </Consumer>
-
 );
 
 export default withRouter(Create);
