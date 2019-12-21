@@ -1,7 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { Consumer } from '../Context';
-import Canvas from './Canvas';
+import Canvas from '../Components/Canvas';
 
 const style = {
   label: {

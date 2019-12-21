@@ -1,8 +1,7 @@
 /* eslint-disable react/jsx-wrap-multilines */
 import React from 'react';
 import Player from '../Components/Player';
-import Canvas from '../Create/Canvas';
-import QuestionWrapper from './QuestionWrapper';
+import Canvas from '../Components/Canvas';
 import Questions from './Questions';
 
 export default class View extends React.Component {
@@ -66,11 +65,7 @@ export default class View extends React.Component {
         {info
           ? (
             <Canvas>
-              { prompted
-                && (
-                <QuestionWrapper state={this.state} closePrompt={() => this.closePrompt()}>
-                  <Questions q={question} continue={() => this.continue()} />
-                </QuestionWrapper>)}
+              { prompted && <Questions q={question} continue={() => this.continue()} /> }
               <Player
                 info={info}
                 ref={this.player}

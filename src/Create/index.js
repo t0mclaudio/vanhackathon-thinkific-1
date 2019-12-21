@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { withRouter } from 'react-router-dom';
 import Composer from './Composer';
 
-import Canvas from './Canvas';
+import Canvas from '../Components/Canvas';
 import Player from '../Components/Player';
 import Questions from './Questions';
 import ViewBtn from './ViewBtn';

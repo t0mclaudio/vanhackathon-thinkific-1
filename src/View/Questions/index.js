@@ -1,6 +1,7 @@
 import React from 'react';
 import Identification from './Identification';
 import Choices from './Choices';
+import Wrapper from '../../Components/Wrapper';
 
 export default class Questions extends React.Component {
   constructor(props) {
@@ -41,12 +42,12 @@ export default class Questions extends React.Component {
 
   render() {
     return (
-      <div>
+      <Wrapper>
         <p>{this.state.question.question}</p>
         { this.state.question.type === 'multiple choice'
           ? <Choices state={this.state} selectAnswer={(ans) => this.selectAnswer(ans)} submitAnswer={(e) => this.submitAnswer(e)} />
           : <Identification state={this.state} handleChange={(e) => this.handleChange(e)} submitAnswer={(e) => this.submitAnswer(e)} /> }
-      </div>
+      </Wrapper>
     );
   }
 }

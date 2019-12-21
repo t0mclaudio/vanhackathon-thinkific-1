@@ -9,7 +9,7 @@ const style = {
     zIndex: 99,
     position: 'absolute',
     borderRadius: '4px',
-    padding: '30px',
+    padding: '15px',
     color: 'white',
   },
 };

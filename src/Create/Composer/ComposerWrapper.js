@@ -4,21 +4,10 @@ import React from 'react';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimesCircle, faArrowAltCircleLeft } from '@fortawesome/free-solid-svg-icons';
-
+import Wrapper from '../../Components/Wrapper';
 import { Consumer } from '../../Context';
 
 const style = {
-  overlay: {
-    display: 'grid',
-    width: '640px',
-    minHeight: '427px',
-    backgroundColor: '#222f3e',
-    zIndex: 99,
-    position: 'absolute',
-    borderRadius: '4px',
-    padding: '15px',
-    color: 'white',
-  },
   close: {
     textAlign: 'right',
     fontSize: '28px',
@@ -42,7 +31,7 @@ const style = {
 export default (props) => (
   <Consumer>
     {({ currentModule, elapsed, actions }) => (
-      <div style={style.overlay}>
+      <Wrapper>
         <div style={style.nav}>
           <span>
             {currentModule !== 'A'
@@ -64,7 +53,7 @@ export default (props) => (
         <p style={style.text}>
           {`Prompt will be positioned at ${elapsed}`}
         </p>
-      </div>
+      </Wrapper>
     )}
   </Consumer>
 );
