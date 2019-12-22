@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { useContext } from 'react';
 import { withRouter } from 'react-router-dom';
 import Composer from './Composer';
 
@@ -9,29 +9,27 @@ import Questions from './Questions';
 import ViewBtn from './ViewBtn';
 import InsertBtn from './InsertBtn';
 
-import { Consumer } from '../Context';
+import { PlayerContext } from '../Context';
 
-const Create = (props) => (
-  <Consumer>
-    {({ playerRef, isInfoSet, createMode, actions }) => {
-      if (!createMode) actions.setCreateMode(); // hack
-      if (isInfoSet) {
-        return (
-          <>
-            <Canvas>
-              <Composer />
-              <Player ref={playerRef}>
-                <InsertBtn />
-              </Player>
-              <ViewBtn />
-            </Canvas>
-            <Questions />
-          </>
-        );
-      }
-      return props.history.push('/');
-    }}
-  </Consumer>
-);
+export default withRouter((props) => {
+  const {
+    playerRef, isInfoSet, createMode, actions,
+  } = useContext(PlayerContext);
 
-export default withRouter(Create);
+  if (!createMode) actions.setCreateMode(); // hack
+  if (isInfoSet) {
+    return (
+      <>
+        <Canvas>
+          <Composer />
+          <Player ref={playerRef}>
+            <InsertBtn />
+          </Player>
+          <ViewBtn />
+        </Canvas>
+        <Questions />
+      </>
+    );
+  }
+  return props.history.push('/');
+});
