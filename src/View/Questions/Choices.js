@@ -1,5 +1,5 @@
-import React from 'react';
-import wrongAnswer from './WrongAnswer';
+import React, { useContext, useState } from 'react';
+import { PlayerContext } from '../../Context';
 import WrongAnswer from './WrongAnswer';
 
 const style = {
@@ -12,6 +12,7 @@ const style = {
     borderRadius: '4px',
     color: '#222f3e',
     fontSize: '15px',
+    display: 'block',
   },
   selected: {
     padding: '12px',
@@ -20,21 +21,44 @@ const style = {
     borderRadius: '4px',
     color: '#222f3e',
     fontSize: '15px',
+    display: 'block',
   },
 };
 
-export default (props) => (
-  <form onSubmit={(e) => props.submitAnswer(e)}>
-    { props.state.wrongAnswer
-      && <WrongAnswer />
-    }
+export default () => {
+  const { question, actions } = useContext(PlayerContext);
+  const [answer, setAnswer] = useState('');
+  const [isCorrect, setCorrect] = useState(true);
 
-    {props.state.question.choices.map((choice, index) => {
-      const isSelected = choice === props.state.answer ? style.selected : style.choice
-      return (
-        <p style={isSelected} key={index} onClick={() => props.selectAnswer(choice)}>{choice}</p>
-      );
-    })}
-    <input type="submit" className="btn btn-warning mt-4" />
-  </form>
-);
+  const selectAnswer = (ans) => setAnswer(ans);
+
+  const submitAnswer = () => {
+    if (question.answer.trim() === answer.trim()) {
+      actions.closePrompt();
+      actions.play();
+    } else {
+      setCorrect(false);
+    }
+  };
+
+  return (
+    <form onSubmit={submitAnswer}>
+      <p>{question.question}</p>
+      { !isCorrect && <WrongAnswer />}
+      { question.choices.map((choice) => {
+        const isSelected = choice === question.answer ? style.selected : style.choice;
+        return (
+          <button
+            type="button"
+            style={isSelected}
+            key={choice}
+            onClick={() => selectAnswer(choice)}
+          >
+            {choice}
+          </button>
+        );
+      })}
+      <input type="submit" className="btn btn-warning mt-4" />
+    </form>
+  );
+};
