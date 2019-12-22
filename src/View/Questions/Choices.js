@@ -1,4 +1,6 @@
 import React from 'react';
+import wrongAnswer from './WrongAnswer';
+import WrongAnswer from './WrongAnswer';
 
 const style = {
   correct: 'form-control',
@@ -24,14 +26,7 @@ const style = {
 export default (props) => (
   <form onSubmit={(e) => props.submitAnswer(e)}>
     { props.state.wrongAnswer
-      &&
-      (
-      <div>
-        <small id="passwordHelp" className="text-danger">
-          That is the wrong answer. Try again
-        </small>
-      </div>
-      )
+      && <WrongAnswer />
     }
 
     {props.state.question.choices.map((choice, index) => {

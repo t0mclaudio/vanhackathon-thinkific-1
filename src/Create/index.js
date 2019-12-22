@@ -14,7 +14,7 @@ import { Consumer } from '../Context';
 const Create = (props) => (
   <Consumer>
     {({ isInfoSet, createMode, actions }) => {
-      if (!createMode) actions.setCreateMode(true); // hack
+      if (!createMode) actions.setCreateMode(); // hack
       if (isInfoSet) {
         return (
           <>

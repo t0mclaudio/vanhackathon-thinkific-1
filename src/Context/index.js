@@ -5,6 +5,14 @@ import { convertSecondsToInt, convertSecondsToTime } from '../Components/Player/
 
 export const PlayerContext = React.createContext();
 
+const getEmail = {
+  question: 'To continue, type in your email address',
+  answer: '',
+  type: 'identification',
+  time: 1,
+  elapsed: '00:00:01',
+};
+
 export class Provider extends Component {
   constructor(props) {
     super(props);
@@ -20,13 +28,17 @@ export class Provider extends Component {
       isComposing: false,
       time: {},
       activeInModal: 'A',
-      questions: [],
+      questions: [getEmail],
+      question: {},
       currentModule: 'A',
       createMode: true,
+      prompt: false,
     };
   }
 
-  setCreateMode = (status) => this.setState({ createMode: status });
+  setCreateMode = () => this.setState({ createMode: true });
+
+  setViewMode = () => this.setState({ createMode: false });
 
   handleChange = (e) => {
     const { name, value } = e.target;
@@ -64,9 +76,12 @@ export class Provider extends Component {
 
   checkIfQuestion = (currentSecond, ref) => {
     const { questions } = this.state;
-    if (questions.find((q) => q.time === currentSecond)) {
+    const question = questions.find((q) => q.time === currentSecond);
+    if (question) {
       this.pause();
       ref.current.seekTo(currentSecond);
+      this.openPrompt()
+      this.setState({ question });
     }
   }
 
@@ -90,7 +105,7 @@ export class Provider extends Component {
   }
 
   handleSubmit = (data) => {
-    let { questions } = this.state;
+    const { questions } = this.state;
     // To Refactor: Checks if duplipate entry in time
     if (questions.find((q) => q.time === data.time)) {
       const index = questions.findIndex((q) => q.time === data.time);
@@ -109,29 +124,9 @@ export class Provider extends Component {
     this.setState({ isComposing: false, activeInModal: 'A' });
   }
 
-  // const reportTime = () => {
-  //   const { currentSecond, elapsed } = this.state;
-  //   return {
-  //     currentSecond,
-  //     elapsed,
-  //   };
-  // }
+  openPrompt = () => this.setState({ prompt: true });
 
-  // openComposer() {
-  //   this.player.current.pause();
-  //   this.setState({
-  //     isComposing: true,
-  //     time: this.player.current.reportTime(),
-  //   });
-  // }
-
-  // handleInsertClick(time) {
-  //   this.openComposer()
-  // }
-
-  // handleViewVideo() {
-  //   this.props.handleViewVideo(this.state)
-  // }
+  closePrompt = () => this.setState({ prompt: false });
 
   render() {
     // eslint-disable-next-line react/prop-types
@@ -149,6 +144,8 @@ export class Provider extends Component {
       updateModalModule: this.updateModalModule.bind(this),
       closeComposer: this.closeComposer.bind(this),
       setCreateMode: this.setCreateMode.bind(this),
+      setViewMode: this.setViewMode.bind(this),
+      closePrompt: this.closePrompt.bind(this),
     };
     return (
       <PlayerContext.Provider value={{ ...this.state, actions }}>

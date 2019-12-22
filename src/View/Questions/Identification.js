@@ -1,28 +1,46 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Consumer } from '../../Context';
 
-const style = {
-  correct: 'form-control',
-  wrong: 'form-control is-invalid',
+import WrongAnswer from './WrongAnswer';
+
+export default () => {
+  const [answer, setAnswer] = useState('');
+  const [isCorrect, setCorrect] = useState(true);
+  const correct = 'form-control';
+  const wrong = 'form-control is-invalid';
+
+  return (
+    <Consumer>
+      {({ question, actions }) => {
+        const handleChange = (e) => {
+          setCorrect(true);
+          setAnswer(e.target.value);
+        };
+
+        const submitAnswer = () => {
+          if (question.answer.trim() === answer.trim()) {
+            actions.closePrompt();
+            actions.play();
+          } else {
+            setCorrect(false);
+          }
+        };
+
+        return (
+          <form onSubmit={submitAnswer}>
+            <p>{question.question}</p>
+            <input
+              type="text"
+              className={isCorrect ? correct : wrong}
+              name="answer"
+              value={answer}
+              onChange={handleChange}
+            />
+            { !isCorrect && <WrongAnswer />}
+            <input type="submit" className="btn btn-warning mt-4" />
+          </form>
+        );
+      }}
+    </Consumer>
+  );
 };
-
-export default (props) => (
-  <form onSubmit={(e) => props.submitAnswer(e)}>
-    <input
-      type="text"
-      className={props.state.wrongAnswer ? style.wrong : style.correct}
-      name="answer" value={props.state.answer}
-      onChange={e => props.handleChange(e)}
-    />
-    { props.state.wrongAnswer
-      &&
-      (
-        <div>
-          <small id="passwordHelp" className="text-danger">
-            That is the wrong answer. Try again
-          </small>
-        </div>
-      )
-    }
-    <input type="submit" className="btn btn-warning mt-4" />
-  </form>
-);
