@@ -14,7 +14,7 @@ const Seeker = (props) => (
           step="any"
           value={played}
           onChange={actions.handleSeekChange}
-          onMouseUp={(e) => actions.handleSeekMouseUp(e, props.playerRef)}
+          onMouseUp={(e) => actions.handleSeekMouseUp(e)}
         />
       </div>
     )}

@@ -9,13 +9,13 @@ import Questions from './Questions';
 import { PlayerContext } from '../Context';
 
 const View = (props) => {
-  const { isInfoSet, createMode, actions } = useContext(PlayerContext);
+  const { playerRef, isInfoSet, createMode, actions } = useContext(PlayerContext);
   if (createMode) actions.setViewMode();
   if (isInfoSet) {
     return (
       <Canvas>
         <Questions />
-        <Player />
+        <Player ref={playerRef} />
       </Canvas>
     );
   }

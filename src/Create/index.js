@@ -13,14 +13,14 @@ import { Consumer } from '../Context';
 
 const Create = (props) => (
   <Consumer>
-    {({ isInfoSet, createMode, actions }) => {
+    {({ playerRef, isInfoSet, createMode, actions }) => {
       if (!createMode) actions.setCreateMode(); // hack
       if (isInfoSet) {
         return (
           <>
             <Canvas>
               <Composer />
-              <Player>
+              <Player ref={playerRef}>
                 <InsertBtn />
               </Player>
               <ViewBtn />

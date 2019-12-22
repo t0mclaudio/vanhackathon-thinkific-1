@@ -17,6 +17,7 @@ export class Provider extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      playerRef: React.createRef(),
       url: '',
       title: '',
       description: '',
@@ -58,12 +59,12 @@ export class Provider extends Component {
     this.setState({ playing: false });
   }
 
-  onProgress = (state, ref) => {
+  onProgress = (state) => {
     const { createMode } = this.state;
     const { played, playedSeconds } = state;
     const currentSecond = convertSecondsToInt(playedSeconds);
     this.timeElapsed(currentSecond, played);
-    if (!createMode) this.checkIfQuestion(currentSecond, ref);
+    if (!createMode) this.checkIfQuestion(currentSecond);
   }
 
   timeElapsed = (currentSecond, played) => {
@@ -74,13 +75,13 @@ export class Provider extends Component {
     });
   }
 
-  checkIfQuestion = (currentSecond, ref) => {
-    const { questions } = this.state;
+  checkIfQuestion = (currentSecond) => {
+    const { questions, playerRef } = this.state;
     const question = questions.find((q) => q.time === currentSecond);
     if (question) {
       this.pause();
-      ref.current.seekTo(currentSecond);
-      this.openPrompt()
+      playerRef.current.seekTo(currentSecond);
+      this.openPrompt();
       this.setState({ question });
     }
   }
@@ -90,9 +91,10 @@ export class Provider extends Component {
     this.setState({ played: to });
   }
 
-  handleSeekMouseUp = (e, ref) => {
+  handleSeekMouseUp = (e) => {
+    const { playerRef } = this.state;
     const to = parseFloat(e.target.value);
-    ref.current.seekTo(to);
+    playerRef.current.seekTo(to);
   }
 
   handleInsertClick = () => {
