@@ -6,11 +6,11 @@ import { PlayerContext } from '../../Context';
 
 
 export default () => {
-  const ctx = useContext(PlayerContext);
-  if (ctx.prompt) {
+  const { prompt, question } = useContext(PlayerContext);
+  if (prompt) {
     return (
       <Wrapper>
-        { ctx.question.type === 'multiple choice'
+        { question.type === 'multiple choice'
           ? <Choices />
           : <Identification />}
       </Wrapper>
