@@ -3,82 +3,28 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
 } from 'react-router-dom';
-
-import firebase from 'firebase/app';
-import 'firebase/firestore';
 
 import Create from './Create';
 import View from './View';
 import Form from './Create/Form';
 
-import config from '../config';
-
 import { Provider } from './Context';
 
-firebase.initializeApp(config.firebaseConfig);
-
-const db = firebase.firestore();
-
-export default class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      data: {},
-      embedCode: ""
-    }
-  }
-
-  handleViewVideo(data) {
-    this.setState({ data: data })
-    db.collection(config.collection).add(data)
-      .then(docRef => {
-        console.log("Document written with ID: ", docRef.id);
-        return docRef.id
-      })
-      .then(id => {
-        let embedCode =
-          `
-      <!-- Create mount point -->
-      <div id="mountPoint"></div>
-  
-      <!-- Get script -->
-      <script src="https://create-your-own-adventure-video-maker-v1.s3-ap-southeast-1.amazonaws.com/embed.js"></script>
-  
-      <!-- Initialize -->
-      <script>
-        IVideo.embed("${id}", document.getElementById('mountPoint'))
-      </script>
-      `
-        this.setState({ embedCode: embedCode })
-      })
-      .catch(error => console.error("Error adding document: ", error))
-
-  }
-
-  saveToDb() {
-
-  }
-
-  render() {
-    return (
-      <Provider>
-        <Router>
-          <Switch>
-            <Route exact path="/">
-              <Form />
-            </Route>
-            <Route exact path="/create">
-              <Create handleViewVideo={data => this.handleViewVideo(data)} />
-            </Route>
-            <Route exact path="/view">
-              <View data={this.state.data} embedCode={this.state.embedCode} />
-            </Route>
-          </Switch>
-        </Router>
-      </Provider>
-    )
-  }
-}
-
+export default () => (
+  <Provider>
+    <Router>
+      <Switch>
+        <Route exact path="/">
+          <Form />
+        </Route>
+        <Route exact path="/create">
+          <Create />
+        </Route>
+        <Route exact path="/view">
+          <View />
+        </Route>
+      </Switch>
+    </Router>
+  </Provider>
+);
