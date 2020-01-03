@@ -8,6 +8,7 @@ import Player from '../Components/Player';
 import Questions from './Questions';
 import ViewBtn from './ViewBtn';
 import InsertBtn from './InsertBtn';
+import Back from '../Components/Back';
 
 import { PlayerContext } from '../Context';
 
@@ -20,6 +21,7 @@ export default withRouter((props) => {
   if (isInfoSet) {
     return (
       <>
+        <Back to="/" />
         <Canvas>
           <Composer />
           <Player ref={playerRef}>
