@@ -63,4 +63,5 @@ const embedScriptConfig = {
   }
 }  
 
-module.exports = [ bundelScriptConfig, embedScriptConfig ]
+// module.exports = [ bundelScriptConfig, embedScriptConfig ]
+module.exports = [ bundelScriptConfig ]
