@@ -6,6 +6,7 @@ const style = {
   correct: 'form-control',
   wrong: 'form-control is-invalid',
   choice: {
+    minWidth: '150px',
     padding: '12px',
     margin: '10px 0',
     backgroundColor: 'white',
@@ -15,6 +16,7 @@ const style = {
     display: 'block',
   },
   selected: {
+    minWidth: '150px',
     padding: '12px',
     margin: '10px 0',
     backgroundColor: '#10ac84',
@@ -32,7 +34,8 @@ export default () => {
 
   const selectAnswer = (ans) => setAnswer(ans);
 
-  const submitAnswer = () => {
+  const submitAnswer = (e) => {
+    e.preventDefault();
     if (question.answer.trim() === answer.trim()) {
       actions.closePrompt();
       actions.play();
@@ -46,7 +49,7 @@ export default () => {
       <p>{question.question}</p>
       { !isCorrect && <WrongAnswer />}
       { question.choices.map((choice) => {
-        const isSelected = choice === question.answer ? style.selected : style.choice;
+        const isSelected = choice === answer ? style.selected : style.choice;
         return (
           <button
             type="button"
