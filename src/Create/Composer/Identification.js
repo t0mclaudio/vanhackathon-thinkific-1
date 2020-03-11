@@ -7,6 +7,7 @@ const Identification = () => {
     question: '',
     answer: '',
     type: 'identification',
+    email: false,
   };
 
   const [state, setState] = useState(initialState);

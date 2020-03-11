@@ -11,6 +11,7 @@ const getEmail = {
   type: 'identification',
   time: 1,
   elapsed: '00:00:01',
+  email: true,
 };
 
 export class Provider extends Component {
