@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { PlayerContext } from '../../Context';
+import validator from 'email-validator';
 
 import WrongAnswer from './WrongAnswer';
 
@@ -12,13 +13,27 @@ export default () => {
 
   const handleChange = (e) => {
     setCorrect(true);
-    setAnswer(e.target.value);
+    setAnswer(e.target.value.trim());
   };
 
-  const submitAnswer = () => {
-    if (question.answer.trim() === answer.trim()) {
-      actions.closePrompt();
-      actions.play();
+  function proceed() { // Testing if function declaration works
+    actions.closePrompt();
+    actions.play();
+  }
+
+  const submitAnswer = (e) => {
+    e.preventDefault();
+
+    if (question.email) {
+      if (validator.validate(answer)) {
+        proceed();
+      } else {
+        setCorrect(false);
+      }
+    }
+
+    if (question.answer.trim() === answer && !question.email) {
+      proceed();
     } else {
       setCorrect(false);
     }
